@@ -1,0 +1,422 @@
+<ui:composition template="home.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"    
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+    xmlns:pe="http://primefaces.org/ui/extensions">
+    <ui:define name="Content">
+        
+           <h:head>
+      
+          
+        <f:metadata>
+            <f:viewParam name="id" value="#{viewSignedReport.reportId}" required="true" />
+            <f:event type="preRenderView" listener="#{viewSignedReport.init2()}" />
+        </f:metadata>
+                    
+    </h:head>
+       
+       <p:growl id="message" showDetail="true" />
+       <h:form id="form" rendered="#{viewSignedReport.render}">
+           
+    
+           <c:choose>
+               <c:when test="#{!viewSignedReport.xml}">
+                   
+          
+               <h:panelGroup id="normal" rendered="#{!viewSignedReport.xml}">
+                                    <p:panelGrid id="tbl" style="margin-top:20px;width: 100%">
+                     <f:facet name="header">
+                         <p:row>
+                             <p:column colspan="7">Report Id:<h:outputText value="#{viewSignedReport.reportId}"/>
+                                 
+                             
+                             </p:column>
+                         </p:row>
+                     
+
+                     </f:facet>
+                     <p:row>
+                         <p:column style="font-weight: bold;">Incident Name:</p:column>
+                         <p:column ><h:outputText value="#{viewSignedReport.incidentReport.incidentName}"/></p:column>
+                          <p:column style="font-weight: bold;">Incident Id:</p:column>
+                          <p:column ><h:outputText value="#{viewSignedReport.incidentReport.incidentId.incidentId}"/></p:column>
+                            
+                         
+
+           
+                     </p:row>
+
+                        <p:row>
+                            <p:column style="font-weight: bold;">Building:</p:column>
+                         <p:column ><h:outputText value="#{viewSignedReport.incidentReport.buildingShortName}"/></p:column>
+                          <p:column style="font-weight: bold;">Building Code:</p:column>
+                          <p:column ><h:outputText value="#{viewSignedReport.incidentReport.buildingCode.buildingCode}"/></p:column>
+                     </p:row>
+
+                     <p:row>
+                         
+                            <p:column style="font-weight: bold;">Location Description:</p:column>
+                            <p:column ><h:outputText value="#{viewSignedReport.incidentReport.locationDescription}"/></p:column>
+                            <p:column style="font-weight: bold;">Date Of Occurence:</p:column>
+                         <p:column ><h:outputText value="#{viewSignedReport.incidentReport.dateTimeOfOccurrence}"/></p:column>
+                     </p:row>
+
+                     <p:row>
+                          <p:column style="font-weight: bold;" >Current Status:</p:column>
+                          <p:column ><h:outputText value="#{viewSignedReport.incidentReport.currentStatus}"/></p:column>
+
+                   <p:column  style="font-weight: bold;">Is new Version Required?</p:column>
+                   <p:column ><h:outputText value="#{viewSignedReport.incidentReport.isNewVersionRequired}"/></p:column>
+                     </p:row>
+
+                     <p:row>
+                         <p:column  style="font-weight: bold;">Old Report Id:</p:column>
+                         <p:column ><h:outputText value="#{viewSignedReport.incidentReport.oldReportId}"/></p:column>
+
+                   <p:column style="font-weight: bold;">Reported On:</p:column>
+                   <p:column ><h:outputText value="#{viewSignedReport.incidentReport.reportedOn}"/></p:column>
+                     </p:row>
+
+                 
+
+                     
+
+                    
+                         <p:row >
+                             <p:column  colspan="2" style="text-align: right;font-weight: bold" >
+                                 Incident Description:
+                             </p:column>
+                             <p:column  colspan="2" >
+                                 <h:outputText value="#{viewSignedReport.incidentReport.incidentDetails}"/>
+                             </p:column>
+                         </p:row>
+
+                     
+                 </p:panelGrid>
+                   
+                   
+              <p:accordionPanel multiple="true" >
+                     <p:tab title="Questionnaire" >
+                         <p:dataTable id="ques" var="ques" value="#{viewSignedReport.ques}">
+                               
+                                    <p:column headerText="Questions">
+                                        <h:outputText value="#{ques.questionDescription}" />
+                                     </p:column>
+
+                                    <p:column headerText="Answer">
+                                        <h:outputText value="#{ques.answer}" />
+                                     </p:column>
+           </p:dataTable>
+                     </p:tab>
+                     <p:tab title="Persons Involved">
+                                        <p:dataTable id="persons" var="person" value="#{viewSignedReport.ipi}">
+                        
+                              <p:column headerText="Name">
+                                  <h:outputText value="#{person.name}" />
+                               </p:column>
+                              <p:column headerText="Having BARC Card?">
+                                  <h:outputText value="#{person.havingBarcCard}" />
+                               </p:column>
+                              <p:column headerText="Card Type">
+                                  <h:outputText value="#{person.cardType}" />
+                               </p:column>
+
+                              <p:column headerText="Id">
+                                  <h:outputText value="#{person.id}" />
+                               </p:column>
+
+                              <p:column headerText="Desig.">
+                                  <h:outputText value="#{person.designation}" />
+                               </p:column>
+
+                              <p:column headerText="Div.">
+                                  <h:outputText value="#{person.divisionCompany}" />
+                               </p:column>
+
+                              <p:column headerText="Address">
+                                  <h:outputText value="#{person.address}" />
+                               </p:column>
+
+                              <p:column headerText="Street">
+                                  <h:outputText value="#{person.street}" />
+                               </p:column>
+
+                              <p:column headerText="City">
+                                  <h:outputText value="#{person.city}" />
+                               </p:column>
+
+                              <p:column headerText="State">
+                                  <h:outputText value="#{person.state}" />
+                               </p:column>
+
+                              <p:column headerText="Country">
+                                  <h:outputText value="#{person.country}" />
+                               </p:column>
+
+                              <p:column headerText="Contact No">
+                                  <h:outputText value="#{person.contactNo}" />
+                               </p:column>
+
+                              <p:column headerText="Is Accused">
+                                  <h:outputText value="#{person.isAccused}" />
+                               </p:column>
+
+                              <p:column headerText="Is Victim">
+                                  <h:outputText value="#{person.isVictim}" />
+                               </p:column>
+
+                              <p:column headerText="Is Witness">
+                                  <h:outputText value="#{person.isWitness}" />
+                               </p:column>
+
+
+                          </p:dataTable>
+                      
+                     </p:tab>
+                     <p:tab title="Documents Attached">
+                         <p:dataTable id="doc" var="doc" value="#{viewSignedReport.docs}">
+                              
+                                    <p:column headerText="S.No">
+                                        <h:outputText value="#{doc.srNo}" />
+                                     </p:column>
+
+                                    <p:column headerText="Document Name">
+                                        <h:outputText value="#{doc.docFileName}" />
+                                     </p:column>
+
+                                    <p:column headerText="UploadedBy">
+                                        <h:outputText value="#{doc.uploadedBy.empNo}" />
+                                     </p:column>
+
+                                    <p:column headerText="Uploaded On">
+                                        <h:outputText value="#{doc.uploadedOn}" />
+                                     </p:column>
+                             
+                              <p:column headerText="Download File">
+                                                             
+                                        <p:commandButton value="Download" ajax="false" icon="ui-icon-arrowthick-1-s">
+                                            <p:fileDownload value="#{fileDownloadView.getFile(doc)}" />
+                                        </p:commandButton>
+                                  
+              
+                                     </p:column>
+                             
+
+               
+               
+           </p:dataTable>
+                     </p:tab>
+                       <p:tab title="Remarks :">
+                           <p:dataTable id="authSign" var="authSign" value="#{viewSignedReport.authSign}">
+                              
+                                    <p:column headerText="S.No:">
+                                        <h:outputText value="#{authSign.authSrNo}" />
+                                     </p:column>
+
+                                    <p:column headerText="Action:">
+                                        <h:outputText value="#{authSign.action}" />
+                                     </p:column>
+
+                                    <p:column headerText="Designation:">
+                                        <h:outputText value="#{authSign.authDesig}" />
+                                     </p:column>
+
+                                    <p:column headerText="Remark:">
+                                        <h:outputText value="#{authSign.remarks}" />
+                                     </p:column>
+                                 <p:column headerText="Role:">
+                                     <h:outputText value="#{authSign.roleName}" />
+                                     </p:column>
+
+              
+               
+               
+           </p:dataTable>
+                     </p:tab>
+                 </p:accordionPanel>
+                    </h:panelGroup>
+                   <p:dataTable id="personss" var="person" value="#{viewSignedReport.ipi}" rendered="false">
+                        
+                              <p:column headerText="Name">
+                                  <h:outputText value="#{person.name}" />
+                               </p:column>
+                              <p:column headerText="Having BARC Card?">
+                                  <h:outputText value="#{person.havingBarcCard}" />
+                               </p:column>
+                              <p:column headerText="Card Type">
+                                  <h:outputText value="#{person.cardType}" />
+                               </p:column>
+
+                              <p:column headerText="Id">
+                                  <h:outputText value="#{person.id}" />
+                               </p:column>
+
+                              <p:column headerText="Desig.">
+                                  <h:outputText value="#{person.designation}" />
+                               </p:column>
+
+                              <p:column headerText="Div.">
+                                  <h:outputText value="#{person.divisionCompany}" />
+                               </p:column>
+
+                              <p:column headerText="Address">
+                                  <h:outputText value="#{person.address}" />
+                               </p:column>
+
+                              <p:column headerText="Street">
+                                  <h:outputText value="#{person.street}" />
+                               </p:column>
+
+                              <p:column headerText="City">
+                                  <h:outputText value="#{person.city}" />
+                               </p:column>
+
+                              <p:column headerText="State">
+                                  <h:outputText value="#{person.state}" />
+                               </p:column>
+
+                              <p:column headerText="Country">
+                                  <h:outputText value="#{person.country}" />
+                               </p:column>
+
+                              <p:column headerText="Contact No">
+                                  <h:outputText value="#{person.contactNo}" />
+                               </p:column>
+
+                              <p:column headerText="Is Accused">
+                                  <h:outputText value="#{person.isAccused}" />
+                               </p:column>
+
+                              <p:column headerText="Is Victim">
+                                  <h:outputText value="#{person.isVictim}" />
+                               </p:column>
+
+                              <p:column headerText="Is Witness">
+                                  <h:outputText value="#{person.isWitness}" />
+                               </p:column>
+
+
+                          </p:dataTable>
+                   <p:dataTable id="docss" var="doc" value="#{viewSignedReport.docs}" rendered="false">
+                              
+                                    <p:column headerText="S.No">
+                                        <h:outputText value="#{doc.srNo}" />
+                                     </p:column>
+
+                                    <p:column headerText="Document Name">
+                                        <h:outputText value="#{doc.docFileName}" />
+                                     </p:column>
+
+                                    <p:column headerText="UploadedBy">
+                                        <h:outputText value="#{doc.uploadedBy.empNo}" />
+                                     </p:column>
+
+                                    <p:column headerText="Uploaded On">
+                                        <h:outputText value="#{doc.uploadedOn}" />
+                                     </p:column>
+                   </p:dataTable>
+                   
+                   <p:dataTable id="info" value="#{viewSignedReport.export}" var="exp" >
+                       <p:column>
+                           <h:outputText value="#{exp.one}" />
+                       </p:column>
+                       <p:column>
+                           <h:outputText value="#{exp.two}" />
+                       </p:column>
+                       <p:column>
+                           <h:outputText value="#{exp.three}" />
+                       </p:column>
+                       <p:column>
+                           <h:outputText value="#{exp.four}" />
+                       </p:column>
+                       
+                   
+                   </p:dataTable>
+                   <p:dataTable id="quess" var="ques" value="#{viewSignedReport.ques}" rendered="false">
+                               
+                                    <p:column headerText="Questions">
+                                        <h:outputText value="#{ques.questionDescription}" />
+                                     </p:column>
+
+                                    <p:column headerText="Answer">
+                                        <h:outputText value="#{ques.answer}" />
+                                     </p:column>
+           </p:dataTable>
+                   <p:dataTable id="authSigns" var="authSign" value="#{viewSignedReport.authSign}" rendered="false">
+                              
+                                    <p:column headerText="S.No:">
+                                        <h:outputText value="#{authSign.authSrNo}" />
+                                     </p:column>
+
+                                    <p:column headerText="Action:">
+                                        <h:outputText value="#{authSign.action}" />
+                                     </p:column>
+
+                                    <p:column headerText="Designation:">
+                                        <h:outputText value="#{authSign.authDesig}" />
+                                     </p:column>
+
+                                    <p:column headerText="Remark:">
+                                        <h:outputText value="#{authSign.remarks}" />
+                                     </p:column>
+                                 <p:column headerText="Role:">
+                                     <h:outputText value="#{authSign.roleName}" />
+                                     </p:column>
+
+              
+               
+               
+           </p:dataTable>
+                   
+        
+ 
+    
+                   <p:commandLink id="pdf" ajax="false">  
+         <p:graphicImage value="/images/pdf.png"/>  
+         <f:setPropertyActionListener value="false" target="#{exporterController.customExporter}" />  
+         <pe:exporter type="pdf" target="info,quess,docss,personss,authSigns" fileName="ReportDetails"  
+                         datasetPadding="1"/>  
+  
+     </p:commandLink> 
+                     
+     <p:spacer width="20"/>  
+  
+     <p:commandLink id="xls" ajax="false">  
+         <p:graphicImage value="/images/excel.png"/>  
+         <f:setPropertyActionListener value="false" target="#{exporterController.customExporter}" />  
+         <pe:exporter type="xlsx" target="info,quess,docss,personss,authSigns" fileName="ReportDetails"  
+                         datasetPadding="1"/>  
+  
+     </p:commandLink>  
+                    
+                          
+                        </c:when>
+               
+               <c:otherwise>
+           <h:panelGroup >
+               Report Id:<h:outputText value="#{viewSignedReport.reportId}"/>
+               <br>
+               </br>
+               
+               <div style="white-space: pre-wrap"><h:outputText value="#{viewSignedReport.getXML()}"/></div>
+               <br>
+               </br>
+                 
+          
+           </h:panelGroup>
+                   </c:otherwise>
+                    </c:choose>
+           
+  
+        
+         
+       </h:form>
+        
+</ui:define>
+   
+   </ui:composition>
+    
+        

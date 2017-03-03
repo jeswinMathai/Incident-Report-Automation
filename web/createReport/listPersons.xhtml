@@ -1,0 +1,144 @@
+<ui:composition template="home.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pe="http://primefaces.org/ui/extensions" 
+>
+    <ui:define name="Content">
+       
+       <p:growl id="message" showDetail="true" />
+       <h:form id="form">
+           
+          
+       
+           <h:panelGroup id="table1" style="text-align: center" >
+               <fieldset >
+              
+                        <h4>Persons Involved</h4>
+                    
+             </fieldset>
+       
+                </h:panelGroup>
+       <p:growl autoUpdate="true"/>
+       <br>
+       </br>
+   
+           
+           <p:dataTable id="persons" var="person" value="#{fillReport.persons}">
+               <f:facet name="header">
+                     List Of Persons Involved
+                </f:facet>
+               <p:column headerText="Name">
+                   <h:outputText value="#{person.name}" />
+                </p:column>
+               <p:column headerText="Having BARC Card?">
+                   <h:outputText value="#{person.havingBarcCard}" />
+                </p:column>
+               <p:column headerText="Card Type">
+                   <h:outputText value="#{person.cardType}" />
+                </p:column>
+               
+               <p:column headerText="Id">
+                   <h:outputText value="#{person.id}" />
+                </p:column>
+               
+               <p:column headerText="Desig.">
+                   <h:outputText value="#{person.designation}" />
+                </p:column>
+               
+               <p:column headerText="Div.">
+                   <h:outputText value="#{person.divisionCompany}" />
+                </p:column>
+               
+               <p:column headerText="Address">
+                   <h:outputText value="#{person.address}" />
+                </p:column>
+               
+               <p:column headerText="Street">
+                   <h:outputText value="#{person.street}" />
+                </p:column>
+               
+               <p:column headerText="City">
+                   <h:outputText value="#{person.city}" />
+                </p:column>
+               
+               <p:column headerText="State">
+                   <h:outputText value="#{person.state}" />
+                </p:column>
+               
+               <p:column headerText="Country">
+                   <h:outputText value="#{person.country}" />
+                </p:column>
+               
+               <p:column headerText="Contact No">
+                   <h:outputText value="#{person.contactNo}" />
+                </p:column>
+               
+               <p:column headerText="Is Accused">
+                   <h:outputText value="#{person.isAccused}" />
+                </p:column>
+               
+               <p:column headerText="Is Victim">
+                   <h:outputText value="#{person.isVictim}" />
+                </p:column>
+               
+               <p:column headerText="Is Witness">
+                   <h:outputText value="#{person.isWitness}" />
+                </p:column>
+               <p:column headerText="Delete">
+                   <p:commandButton value="Delete" actionListener="#{fillReport.removePerson(person)}" update=":form"/>
+                </p:column>
+               
+               
+           </p:dataTable>
+               
+              
+       
+        
+           <p:commandButton value="Back" style="margin-top: 10px;"   action="createReportB"/>  
+           <p:commandButton value="Next" style="margin-top: 10px;"   action="createReportC"/>  
+  
+           
+         
+    
+              
+
+  
+              
+<h:outputStylesheet id="fluidGridCSS">  
+    .pe-fluidgrid-item {
+        width: 180px;  
+        height: 70px;  
+    }    
+    .pe-fluidgrid-item input {
+        width: 150px;  
+    }  
+    .pe-fluidgrid-item.calendar input {
+        width: 120px;  
+    }  
+    .pe-fluidgrid-item.select .ui-selectonemenu {  
+        width: 157px !important;  
+    }  
+    .pe-fluidgrid-item.select .ui-selectonemenu .ui-selectonemenu-label {  
+        width: 130px !important;  
+    }  
+    .dynaFormLabel {  
+        font-weight: bold;  
+        margin-bottom: 7px;  
+    }  
+</h:outputStylesheet>
+            
+                            
+                        
+                    
+           
+            
+      </h:form>
+        
+</ui:define>
+   
+   </ui:composition>
+    
+        

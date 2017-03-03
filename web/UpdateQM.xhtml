@@ -1,0 +1,84 @@
+<ui:composition template="home.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+>
+    <ui:define name="Content">
+                   <h4>Update Question Master</h4>
+ <p:growl id="message" showDetail="true" />
+      <h:form id="form">
+ 
+ 
+   <p:dataTable id="qMTable" var="qM" value="#{LazyViewQm.list}" editable="true" style="margin-bottom:20px" rows="10"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15">
+       <f:facet name="header">
+            <h4>Update: Question Master</h4>
+           
+        </f:facet>
+ 
+       <p:ajax event="rowEdit" listener="#{LazyViewQm.onRowEdit}" update=":form:upd"/>
+       <p:ajax event="rowEditCancel" listener="#{LazyViewQm.onRowCancel}"  />
+ 
+       <p:column headerText="Question Id">
+    
+           <h:outputText value="#{qM.id}" />
+        
+           
+       </p:column>
+ 
+       <p:column headerText="Question Description">
+           <p:cellEditor>
+               <f:facet name="output"><h:outputText value="#{qM.description}" /></f:facet>
+               <f:facet name="input"><p:inputText value="#{qM.description}" style="width:100%" label="Year"/></f:facet>
+           </p:cellEditor>
+       </p:column>
+ 
+       <p:column headerText="Is Active?">
+           <p:cellEditor>
+               <f:facet name="output"><h:outputText value="#{qM.isActive}" /></f:facet>
+               <f:facet name="input">
+                            <p:selectOneMenu id="field3" value="#{qM.isActive}" style="width:100%">
+                                <f:selectItem itemLabel="Yes" itemValue="Y" />
+                                <f:selectItem itemLabel="No" itemValue="N" />
+                            </p:selectOneMenu>
+               </f:facet>
+           </p:cellEditor>
+       </p:column>
+ 
+       <p:column style="width:32px">
+           <p:rowEditor />
+       </p:column>
+   </p:dataTable>
+           <p:panelGrid style="margin-top:10px;width: 100%" id="upd" >
+    <f:facet name="header">
+        <p:row>
+            <p:column colspan="2">
+                <p:commandButton actionListener="#{LazyViewQm.commitQm('update')}" value="Confirm" update=":form:qMTable,:form:upd,:message" disabled="#{LazyViewQm.newRec('update')}" >
+                <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+                </p:commandButton>
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                </p:confirmDialog>
+                
+                
+            </p:column>
+            <p:column colspan="2">
+                <p:commandButton action="#{LazyViewQm.init()}" value="Discard" update=":form:qMTable" disabled="#{LazyViewQm.newRec('update')}"  />
+                
+                      </p:column>
+         
+        </p:row>
+        </f:facet>
+                </p:panelGrid>
+      </h:form>
+        
+</ui:define>
+   
+   </ui:composition>
+    
+        

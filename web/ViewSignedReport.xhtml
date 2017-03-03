@@ -1,0 +1,73 @@
+<ui:composition template="home.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"    
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:define name="Content">
+         <h:head>
+      
+          
+      
+         </h:head>
+       
+       <p:growl id="message" showDetail="true" />
+       <h:form id="form">
+    
+       
+               <h:panelGroup id="table1" >
+                
+                   <p:dataTable id="tbl" var="ird" value="#{listSignedReport.ird}" scrollable="true" scrollHeight="300" >
+                                    <f:facet name="header">
+                                        <h4>My Signed Reports</h4>
+                                    </f:facet>
+                                       <p:column headerText="Id">
+                                           <h:outputText value="#{ird.reportId}" />
+                                        </p:column>
+
+                                        <p:column headerText="Occured At:">
+                                            <h:outputText value="#{ird.buildingShortName}" />
+                                        </p:column>
+
+                                   <p:column headerText="Date Of Occurence">
+                                       <h:outputText value="#{ird.dateTimeOfOccurrence}" />
+                                        </p:column>
+                                        <p:column headerText="Incident:">
+                                            <h:outputText value="#{ird.incidentName}" />
+                                        </p:column>
+                                     <p:column headerText="Is New Version Required?">
+                                            <h:outputText value="#{ird.incidentName}" />
+                                        </p:column>
+                                     <p:column headerText="Old Report Id:">
+                                             <h:outputText value="#{ird.oldReportId}" />
+                                        </p:column>
+                                     <p:column headerText="Reported On:">
+                                         <h:outputText value="#{ird.reportedOn}" />
+                                       </p:column>
+                                    <p:column headerText="View:">
+                                   
+            
+                                        
+                                        <h:button value="View" outcome="ViewReportFull" >
+                                            <f:param name="id" value="#{ird.reportId}" />
+</h:button>
+                                       </p:column>
+                                           
+                                     
+                                 
+                            </p:dataTable>
+                                
+              
+                 
+       </h:panelGroup>
+         
+              
+       </h:form>
+  
+        
+</ui:define>
+   
+   </ui:composition>
+    
+        

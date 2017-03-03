@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <head>
+
+<title></title>
+<style type="text/css">
+input {text-align:center}
+.inputclass{
+font-family:arial, helvetica;
+font-weight:bold;
+}
+</style>
+
+<SCRIPT LANGUAGE="JavaScript">
+
+            function writeAppletTag() {
+                var appletString = document.form01.no.value;
+               var appletString2 =  document.form01.nos.value;
+                document.writeln('<APPLET code="appletcode.NewClass" archive="AppletCode.jar" height="55" width="250">');
+                document.writeln(buildParamTag('no1',appletString));
+                document.writeln(buildParamTag('no2',appletString2));                
+                document.writeln('</APPLET>');                
+            }
+
+            function buildParamTag(name, value) {
+                return '<PARAM NAME="' + name + '" VALUE="' + value + '"/>';
+            }
+
+        </SCRIPT> 
+
+
+    </head>
+    <body>
+        
+        <form name="form01" method="get" action="http://quote.barchart.com/quote.asp" onsubmit="reutrn false" >
+
+<input type="text" name="no" size="8" value="6"/>
+<input type="text" name="nos" size="8" value="7"/>
+<input type="submit" size="8" />
+
+
+</form>
+       <div id="appletContainer">
+   <SCRIPT LANGUAGE="JavaScript">
+       writeAppletTag();
+          </SCRIPT>
+    </div>
+ 
+    </body>
+</html>
+
+

@@ -1,0 +1,22 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+	<f:view>
+		<h:form>
+			<h1>JavaBeat JSF 2.2 Examples</h1>
+			<h2>JSF2 FlowScoped Example</h2>
+			<br/>
+			<br/>
+			<h:outputText value="Page # #{register.index}" style="font-size:15px;"/>
+			<br/>
+			<br/>
+			<h:outputText value="JavaBeat Training Center"/>
+			<br/>
+			<br/>
+			<h:outputText value="Start"/>
+			#{' '}
+			<h:commandButton value="Enter Registration Info" action="#{register.fillBasicInfo}"/>
+		</h:form>
+	</f:view>
+</html>

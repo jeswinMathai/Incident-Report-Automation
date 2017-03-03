@@ -1,0 +1,22 @@
+<script language= "javascript" type= "text/javascript">
+var num;
+function getVal()
+{
+num=document.getElementById('in').value;
+document.applets["damn"].setParameter('message',"yo");
+}
+</script>
+<body>
+<form >
+Number : <input type="text" id="in"  ><br/>
+<button id="myBtn" onclick="getVal()">Try it</button><br/>  
+</form>
+<applet name="damn" code="appletcode.NewClass" archive="AppletCode.jar"   
+        width="400" height="350">
+ <param name="message" id="parm" value="&{num};">
+</APPLET>
+
+</body>    
+</html>
+
+    

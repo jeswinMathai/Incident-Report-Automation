@@ -1,0 +1,90 @@
+<ui:composition template="home.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"    
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:define name="Content">
+       
+       <p:growl id="message" showDetail="true" />
+       <h:form id="form">
+     
+               
+      
+           <h:panelGroup id="tab" >
+               <p:panelGrid style="width:100%">
+                <f:facet name="header">     
+                    <p:row>
+                        <p:column>Select a Category</p:column>
+                        <p:column>
+                            <h:selectOneMenu value="#{search.get}"   >
+                   <f:selectItem itemLabel="Pending" itemValue="Pending" />
+                   <f:selectItem itemLabel="Closed" itemValue="Closed" />
+                   <f:selectItem itemLabel="All" itemValue="All" />
+                </h:selectOneMenu>
+                            </p:column>
+                        <p:column>
+               <p:commandButton action="#{search.getChange()}" value="Next" update=":form:table1"/>
+                        </p:column>
+                    </p:row>
+                </f:facet> 
+               </p:panelGrid>
+           </h:panelGroup>
+     
+       
+               <h:panelGroup id="table1" >
+                
+                   <p:dataTable  var="ird" value="#{search.ird}">
+                                            <f:facet name="header">
+                                        <h4>Search :</h4>
+                                    </f:facet>
+                       <p:column headerText="Id" filterBy="#{ird.reportId}" filterMatchMode="contains">
+                                           <h:outputText value="#{ird.reportId}" />
+                                        </p:column>
+
+                       <p:column headerText="Occured At:" filterBy="#{ird.buildingShortName}" filterMatchMode="contains">
+                                            <h:outputText value="#{ird.buildingShortName}" />
+                                        </p:column>
+
+                       <p:column headerText="Occured on" filterBy="#{ird.dateTimeOfOccurrence}" filterMatchMode="contains">
+                                       <h:outputText value="#{ird.dateTimeOfOccurrence}" />
+                                        </p:column>
+                       <p:column headerText="Incident:" filterBy="#{ird.incidentName}" filterMatchMode="contains">
+                                            <h:outputText value="#{ird.incidentName}" />
+                                        </p:column>
+                       <p:column headerText=" New Vr. Rq. ?" filterBy="#{ird.isNewVersionRequired}" filterMatchMode="contains">
+                                            <h:outputText value="#{ird.incidentName}" />
+                                        </p:column>
+                       <p:column headerText="Old Report Id:" filterBy="#{ird.oldReportId}" filterMatchMode="contains">
+                                             <h:outputText value="#{ird.oldReportId}" />
+                                        </p:column>
+                       <p:column headerText="Reported On:" filterBy="#{ird.reportedOn}" filterMatchMode="contains">
+                                         <h:outputText value="#{ird.reportedOn}" />
+                                       </p:column>
+                                    <p:column headerText="View :">
+                                   
+            
+                                        
+                                        <h:button value="View" outcome="ViewReportFull" >
+                                            <f:param name="id" value="#{ird.reportId}" />
+</h:button>
+                                       </p:column>
+                                           
+                                     
+                                 
+                            </p:dataTable>
+    
+                   
+                   
+               </h:panelGroup>
+         
+              
+       </h:form>
+  
+        
+</ui:define>
+   
+   </ui:composition>
+    
+        

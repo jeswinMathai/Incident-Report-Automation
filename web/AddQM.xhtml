@@ -1,0 +1,107 @@
+<ui:composition template="home.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+>
+    <ui:define name="Content">
+       
+       <p:growl id="message" showDetail="true" />
+       <h:form id="form">
+          <p:dataTable  var="qM" value="#{LazyViewQm.lazyModel}" paginator="true" rows="10" 
+                 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                 rowsPerPageTemplate="5,10,15" selectionMode="single" selection="#{LazyViewQm.selectedQm}" id="qMTable" lazy="true">
+        <p:ajax event="rowSelect" listener="#{LazyViewQm.onRowSelect}" update=":form:qMDetail" oncomplete="PF('qMDialog').show()" />
+<f:facet name="header">
+            <h4>Add Questions: Question Master</h4>
+           
+        </f:facet>
+        <p:column headerText="Question Id" sortBy="#{qM.id}" filterBy="#{qM.id}">
+            <h:outputText value="#{qM.id}" />
+        </p:column>
+        <p:column headerText="Question Description" sortBy="#{qM.description}" filterBy="#{qM.description}">
+            <h:outputText value="#{qM.description}" />
+        </p:column>
+              <p:column headerText="Is  Active?" sortBy="#{qM.isActive}" filterBy="#{qM.isActive}">
+                  <h:outputText value="#{qM.isActive}" />
+        </p:column>
+    </p:dataTable>
+          
+           <p:dialog header="RM Detail" widgetVar="qMDialog" modal="false" showEffect="fade" hideEffect="fade" resizable="false">
+        <p:outputPanel id="qMDetail" style="text-align:center;">
+            <p:panelGrid  columns="2" rendered="#{not empty LazyViewQm.selectedQm}" columnClasses="label,value">
+               
+ 
+                <h:outputText value="Question Id:" />
+                <h:outputText value="#{LazyViewQm.selectedQm.id}" />
+ 
+                <h:outputText value="Question Description" />
+                <h:outputText value="#{LazyViewQm.selectedQm.description}" />
+ 
+                <h:outputText value="Is Active?:" />
+                <h:outputText value="#{LazyViewQm.selectedQm.isActive}" />
+ 
+            </p:panelGrid>
+        </p:outputPanel >
+               
+    </p:dialog>
+           <br></br>
+        
+               <p:panelGrid style="width: 100%" id="add" >
+    <f:facet name="header">
+        <p:row>
+          
+            <p:column colspan="2"><h:outputLabel value="Question Id: #{QM.setId(LazyViewQm.getId(0))}"/>
+                
+                <p:inputText id="field" value="#{QM.id}">
+                        
+                </p:inputText>
+                </p:column>
+            <p:column colspan="2"><h:outputLabel value="Question Description:#{QM.setDescription(null)} "/>
+                <p:inputText id="field2" value="#{QM.description}" /></p:column>
+            <p:column colspan="10"><h:outputLabel value="is Active? "/>
+                            <p:selectOneMenu id="field3" value="#{QM.isActive}" style="width:125px">
+                                <f:selectItem itemLabel="Yes" itemValue="Y" />
+                                <f:selectItem itemLabel="No" itemValue="N" />
+                            </p:selectOneMenu></p:column>
+            <p:column colspan="2">
+                <p:commandButton id="addB" action="#{LazyViewQm.CheckId(QM)}" value="Add" update=":form:qMTable,:form:add"  resetValues="true" />
+                
+                      </p:column>
+            <p:column colspan="2">
+                <p:commandButton actionListener="#{LazyViewQm.commitQm('new')}" value="Confirm" update=":form:qMTable,:form:add,:message" disabled="#{LazyViewQm.newRec('new')}" >
+                <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+                </p:commandButton>
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                </p:confirmDialog>
+                
+                
+            </p:column>
+            <p:column colspan="2">
+                <p:commandButton action="#{LazyViewQm.init()}" value="Discard" update=":form:qMTable,:form:add" disabled="#{LazyViewQm.newRec('new')}"  />
+                
+                      </p:column>
+         
+        </p:row>
+ 
+    </f:facet>
+               </p:panelGrid>
+          
+                            
+              
+            
+                            
+                        
+                    
+           
+            
+      </h:form>
+        
+</ui:define>
+   
+   </ui:composition>
+    
+        

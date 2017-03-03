@@ -1,0 +1,85 @@
+<ui:composition template="home.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+>
+    <ui:define name="Content">
+            
+ <p:growl id="message" showDetail="true" />
+      <h:form id="form">
+ 
+ 
+   <p:dataTable id="iMTable" var="iM" value="#{LazyView.list}" editable="true" style="margin-bottom:20px" rows="10"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15">
+       <f:facet name="header">
+            <h4>Update: Incident Master</h4>
+           
+        </f:facet>
+ 
+       <p:ajax event="rowEdit" listener="#{LazyView.onRowEdit}" update=":form:upd"/>
+       <p:ajax event="rowEditCancel" listener="#{LazyView.onRowCancel}"  />
+ 
+       <p:column headerText="Id">
+    
+           <h:outputText value="#{iM.id}" />
+        
+           
+       </p:column>
+ 
+       <p:column headerText="Year">
+           <p:cellEditor>
+               <f:facet name="output"><h:outputText value="#{iM.name}" /></f:facet>
+               <f:facet name="input"><p:inputText value="#{iM.name}" style="width:100%" label="Year"/></f:facet>
+           </p:cellEditor>
+       </p:column>
+ 
+       <p:column headerText="Brand">
+           <p:cellEditor>
+               <f:facet name="output"><h:outputText value="#{iM.isActive}" /></f:facet>
+               <f:facet name="input">
+                            <p:selectOneMenu id="field3" value="#{iM.isActive}" style="width:100%">
+                                <f:selectItem itemLabel="Yes" itemValue="Y" />
+                                <f:selectItem itemLabel="No" itemValue="N" />
+                            </p:selectOneMenu>
+               </f:facet>
+           </p:cellEditor>
+       </p:column>
+ 
+       <p:column style="width:32px">
+           <p:rowEditor />
+       </p:column>
+   </p:dataTable>
+           <p:panelGrid style="margin-top:10px;width: 100%" id="upd" >
+    <f:facet name="header">
+    
+        <p:row>
+            <p:column colspan="2">
+                <p:commandButton actionListener="#{LazyView.commitIm('update')}" value="Confirm" update=":form:iMTable,:form:upd,:message" disabled="#{LazyView.newRec('update')}" >
+                <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+                </p:commandButton>
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                </p:confirmDialog>
+                
+                
+            </p:column>
+            <p:column colspan="2">
+                <p:commandButton action="#{LazyView.init()}" value="Discard" update=":form:iMTable" disabled="#{LazyView.newRec('update')}"  />
+                
+                      </p:column>
+         
+        </p:row>
+        </f:facet>
+                </p:panelGrid>
+      </h:form>
+        
+</ui:define>
+   
+   </ui:composition>
+    
+        

@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <head>
+
+<title></title>
+<style type="text/css">
+input {text-align:center}
+.inputclass{
+font-family:arial, helvetica;
+font-weight:bold;
+}
+</style>
+        <script type="text/javascript">
+var appletString ="";
+var appletString2 ="";
+function makeApplet(){
+return '<applet name="QuotePage" code="appletcode.NewClass" archive="AppletCode.jar" height="55" width="250"><parm name="no1" value="'+appletString+'"/><parm name="no2" value="'+appletString2+'"/> </applet>';
+
+}
+
+function appletParams(){
+appletString = document.form01.no.value;
+ appletString2 =  document.form01.nos.value;
+var c=document.getElementById("appletContainer");
+c.innerHTML=makeApplet();
+return false;
+}
+
+</script>
+    </head>
+    <body>
+        
+     <form name="form01" method="get" action="http://quote.barchart.com/quote.asp" onsubmit="return appletParams()">
+
+<input type="text" name="no" size="8"/>
+<input type="text" name="nos" size="8"/>
+<input type="submit" size="8"/>
+<div id="appletContainer">
+    <applet name="QuotePage" 
+            code="appletcode.NewClass"
+           archive="AppletCode.jar"
+            height="55" width="250">
+    <param  name="no1" value="0"/>
+    <param  name="no2" value="0"/>
+
+    </applet>
+    </div>
+</form>
+ 
+    </body>
+</html>
+

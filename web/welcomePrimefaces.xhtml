@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>PrimeFaces</title>
+            </f:facet>
+        </h:head>
+
+        <h:body>
+
+            <p:layout fullPage="true">
+
+                <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
+                    Header
+                </p:layoutUnit>
+
+                <p:layoutUnit position="south" size="100" closable="true" collapsible="true">
+                    Footer
+                </p:layoutUnit>
+
+                <p:layoutUnit position="west" size="175" header="Left" collapsible="true">
+                    <p:menu>
+                        <p:submenu label="Resources">
+                            <p:menuitem value="Demo" url="http://www.primefaces.org/showcase-labs/ui/home.jsf" />
+                            <p:menuitem value="Documentation" url="http://www.primefaces.org/documentation.html" />
+                            <p:menuitem value="Forum" url="http://forum.primefaces.org/" />
+                            <p:menuitem value="Themes" url="http://www.primefaces.org/themes.html" />
+
+                        </p:submenu>
+
+                    </p:menu>
+                </p:layoutUnit>
+
+                <p:layoutUnit position="center">
+                    Welcome  #{login.userName}
+                     <p:accordionPanel>
+        <p:tab title="Data entry/update forms for master data">
+            <h:panelGrid columns="2" cellpadding="10">
+                <p:commandButton value="Incident Master"/>
+                <p:commandButton value="Question Master"/>
+                <p:commandButton value="Role Master"/>
+            </h:panelGrid>
+        </p:tab>
+        <p:tab title="Incident Questionnaire Configuration">
+            <h:panelGrid columns="2" cellpadding="10">
+                 <p:commandButton value="View List of questions for particular incident"/>
+                 <p:commandButton value="Export above List in PDF and Excel format"/>
+                 <p:commandButton value="Add question in incident"/>
+                 <p:commandButton value="Remove question from incident"/>
+                 <p:commandButton value="Export particulars to pdf and excel"/>
+         
+            </h:panelGrid>
+        </p:tab>
+        <p:tab title="User Role Configuration">
+            <h:panelGrid columns="2" cellpadding="10">
+                <p:commandButton value="Assign Roles"/>
+                <p:commandButton value="Revoke Rolest"/>
+                <p:commandButton value="List usersof particular and export"/>
+                <p:commandButton value="Search"/>
+            </h:panelGrid>
+        </p:tab>
+                                 <p:tab title="Search">
+            <h:panelGrid columns="2" cellpadding="10">
+                
+            </h:panelGrid>
+        </p:tab>
+    </p:accordionPanel>
+                </p:layoutUnit>
+
+            </p:layout>
+
+        </h:body>
+
+    </f:view>
+</html>
+

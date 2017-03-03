@@ -1,0 +1,119 @@
+<ui:composition template="home.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+>
+    <ui:define name="Content">
+               
+ <h:form id="form">
+     <p:dataTable id="Table1" var="im" value="#{LazyView.list}"
+                 
+                  style="margin-bottom:20px" selection="#{LazyView.selectedIms}" rowKey="#{im.id}" scrollable="true" scrollHeight="380">
+         <p:column selectionMode="multiple" style="width:16px;text-align:center" />
+             <p:ajax event="rowSelectCheckbox" update=":form:clear,:form:tbl,:form:exp"/>
+              <p:ajax event="rowUnselectCheckbox" update=":form:clear,:form:tbl,:form:exp"/>
+                            <p:ajax event="toggleSelect" update=":form:tbl,:form:exp"/>
+                            <p:ajax event="rowSelect" update=":form:clearr,:form:tbl,:form:exp"/>
+                            <p:ajax event="rowUnselect" update=":form:clear,:form:tbl,:form:exp"/>
+                      <f:facet name="header">
+            <h4>Export: Incident Master</h4>
+           
+        </f:facet>     
+             
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="Incident Id" />
+            </f:facet>
+            <h:outputText value="#{im.id}" />
+        </p:column>
+ 
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="Incident Name"/>
+            </f:facet>
+            <h:outputText value="#{im.name}" />
+        </p:column>
+ 
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="Is Active?" />
+            </f:facet>
+            <h:outputText value="#{im.isActive}" />
+        </p:column>
+      
+     
+    </p:dataTable>
+        <h:panelGroup id="clear" >
+        <h:outputText value="#{LazyView.clear(0)}"/>
+    </h:panelGroup>
+      <h:panelGroup id="clearr" >
+        <h:outputText value="#{LazyView.clear(2)}"/>
+    </h:panelGroup>
+     <p:dataTable id="tbl" var="im1" value="#{LazyView.selectedIms}"  rendered="false">
+                 
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="Incident Id" />
+            </f:facet>
+            <h:outputText value="#{im1.id}" />
+        </p:column>
+ 
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="Incident Name"/>
+            </f:facet>
+            <h:outputText value="#{im1.name}" />
+        </p:column>
+ 
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="Is Active?" />
+            </f:facet>
+            <h:outputText value="#{im1.isActive}" />
+        </p:column>
+      
+     
+    </p:dataTable>
+ 
+    
+ 
+    <h3>Export Selected Data Only</h3>
+    <h:panelGroup id="exp">
+    <h:panelGroup  rendered="#{LazyView.exportIsEmpty()}" >
+        <h:commandLink >
+            <p:graphicImage value="/images/excel.png" />
+       <p:dataExporter type="xls" target="tbl" fileName="IncidentMaster" postProcessor="#{LazyView.postProcessXLS}" />
+       
+    </h:commandLink>
+ 
+        <h:commandLink>
+            <p:graphicImage value="/images/pdf.png" />
+            <p:dataExporter type="pdf" target="tbl" fileName="IncidentMaster"  preProcessor="#{LazyView.preProcessPDF}" />
+
+        </h:commandLink>
+    </h:panelGroup>
+      
+      
+    <h:panelGroup  rendered="#{!LazyView.exportIsEmpty()}" >
+        
+            <p:graphicImage value="/images/excel1.png" />
+   
+       
+ 
+   
+            <p:graphicImage value="/images/pdf2.png"  />
+   
+    </h:panelGroup>
+        </h:panelGroup>
+ 
+ 
+  
+</h:form>
+
+</ui:define>
+   
+   </ui:composition>
+    
+        

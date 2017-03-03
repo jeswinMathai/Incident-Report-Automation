@@ -1,0 +1,135 @@
+<ui:composition template="home.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pe="http://primefaces.org/ui/extensions" 
+>
+    <ui:define name="Content">
+       
+       <p:growl id="message" showDetail="true" />
+       <h:form id="form">
+           
+          
+       
+           <h:panelGroup id="table1" style="text-align: center" >
+               <fieldset >
+              
+                        <h4>Create Report: Questionnaire</h4>
+                    
+             </fieldset>
+       
+                </h:panelGroup>
+       <p:growl autoUpdate="true"/>
+    
+       
+              
+           <p:dataList id="mandatory" var="mandatory" value="#{fillReport.mandatory}" rendered="#{!fillReport.rendermode}">  
+                          <f:facet name="header">
+                                Mandatory Questions
+                            </f:facet>
+
+                        <div class="dynaFormLabel">  
+                            <p:outputLabel for="mandatoryId" value="#{mandatory.questionDescription}"/>  
+                        </div>  
+                    <p:inputText id="mandatoryId" value="#{mandatory.answer}" required="true"/> 
+                    <br>
+                    </br>
+               
+                
+           </p:dataList>
+       
+       <p:dataList id="previousQ" var="previous" value="#{fillReport.previousQuestions}"   emptyMessage="No Question Added" rendered="#{fillReport.rendermode}">  
+                 <f:facet name="header">
+         Previous Questions
+        </f:facet>
+                        
+               
+               <div class="dynaFormLabel">  
+                   <p:outputLabel for="previousId" value="#{previous.questionDescription}"/>  
+                        </div>  
+           <p:inputText id="previousId" value="#{previous.answer}" required="false" />  <p:commandButton value="Remove" action="#{fillReport.removeQues(previous)}" rendered="#{fillReport.check(previous)}" immediate="true" update=":form:previousQ"/>
+               <br>
+                    </br>
+           </p:dataList>  
+       <br>
+                    </br>
+      
+           
+           <div class="dynaFormLabel">  
+                            <p:outputLabel value="Add A Question"/>  
+                        </div>  
+           <h:selectOneMenu value="#{fillReport.questionId}"  >
+
+                   <f:selectItem itemLabel="Select One" itemValue="" noSelectionOption="false" />
+                   <f:selectItems value="#{fillReport.repeatedQm}" var="qm" itemLabel="#{qm.questionDescription}" itemValue="#{qm.questionId}" />
+                </h:selectOneMenu>
+           <p:commandButton value="Add" style="margin-top: 10px;" actionListener="#{fillReport.addRepeated()}"  update=":form:repeatedQ" />
+         
+           <br>
+       </br>   
+           <p:dataList id="repeatedQ" var="repeated" value="#{fillReport.repeated}"   emptyMessage="No Question Added">  
+                 <f:facet name="header">
+          Additional Questions
+        </f:facet>
+                        
+               
+               <div class="dynaFormLabel">  
+                   <p:outputLabel for="repeatedId" value="#{repeated.questionDescription}"/>  
+                        </div>  
+               <p:inputText id="repeatedId" value="#{repeated.answer}" required="false" /> <p:commandButton value="Remove" action="#{fillReport.removeQuesR(repeated)}" immediate="true" update=":form:repeatedQ"/> 
+               <br>
+                    </br>
+           </p:dataList>  
+           
+    
+                <p:commandButton value="Back" style="margin-top: 10px;"   action="createReport" immediate="true"/>
+                   <p:commandButton value="Next" style="margin-top: 10px;"   action="#{fillReport.next(2)}" />  
+              
+
+  
+              
+<h:outputStylesheet id="fluidGridCSS">  
+    .pe-fluidgrid-item {
+        width: 180px;  
+        height: 70px;  
+    }    
+    .pe-fluidgrid-item input {
+        width: 300px;  
+    }
+    
+    .pe-fluidgridd-item {
+        width: 180px;  
+        height: 70px;  
+    }    
+    .pe-fluidgridd-item input {
+        width: 300px;  
+    } 
+    .pe-fluidgrid-item.calendar input {
+        width: 120px;  
+    }  
+    .pe-fluidgrid-item.select .ui-selectonemenu {  
+        width: 157px !important;  
+    }  
+    .pe-fluidgrid-item.select .ui-selectonemenu .ui-selectonemenu-label {  
+        width: 130px !important;  
+    }  
+    .dynaFormLabel {  
+        font-weight: bold;  
+        margin-bottom: 7px;  
+    }  
+</h:outputStylesheet>
+            
+                            
+                        
+                    
+           
+            
+      </h:form>
+        
+</ui:define>
+   
+   </ui:composition>
+    
+        

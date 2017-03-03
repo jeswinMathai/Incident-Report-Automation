@@ -1,0 +1,180 @@
+<ui:composition template="home.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pe="http://primefaces.org/ui/extensions" 
+>
+    <ui:define name="Content">
+        
+     
+       
+       <p:growl id="message" showDetail="true" />
+       <h:form id="form" >
+           
+          
+       
+           <h:panelGroup id="table1" style="text-align: center"  >
+               <fieldset >
+              
+                   <h4>Create Report: Details </h4>
+                    
+             </fieldset>
+       
+                </h:panelGroup>
+       <p:growl autoUpdate="true" />
+       <br>
+       </br>
+       <fieldset>
+              
+       <pe:fluidGrid id="fluidGrid" resizeBound="false" hGutter="200" widgetVar="fluidGridWdgt" >  
+           
+                <pe:fluidGridItem type="input">  
+                    <div class="dynaFormLabel" >  
+                            <p:outputLabel for="reportId" value="Report Id"/>  
+                        </div>  
+                    <p:inputText id="reportId" value="#{fillReport.incidentReports.reportId}" required="false" disabled="true"/>  
+                </pe:fluidGridItem>  
+           
+                <pe:fluidGridItem type="select" styleClass="select">  
+                        <div class="dynaFormLabel" >  
+                            <p:outputLabel for="incidentId" value="Incident Name" rendered="#{!fillReport.rendermode}"/>  
+                            <p:outputLabel for="incidentIdD" value="Incident Name" rendered="#{fillReport.rendermode}"/>  
+                        </div>  
+                    <p:selectOneMenu id="incidentId" value="#{fillReport.incidentId}" required="true" rendered="#{!fillReport.rendermode}">  
+                             <f:selectItem itemLabel="Select One" itemValue="" noSelectionOption="false" />
+                            <f:selectItems value="#{fillReport.ims}" var="ims" itemLabel="#{ims.incidentName}" itemValue="#{ims.incidentId}" />  
+                        </p:selectOneMenu> 
+                    <div class="dynaFormLabel"  >  
+                           
+                        </div>  
+                    <p:inputText id="incidentIdD" value="#{fillReport.incidentReports.incidentName}" required="false" disabled="true" rendered="#{fillReport.rendermode}"/>  
+                </pe:fluidGridItem>  
+           
+                <pe:fluidGridItem type="calendar" styleClass="calendar">  
+                        <div class="dynaFormLabel">  
+                            <p:outputLabel for="cal" value="Date Of Occurence"/>  
+                        </div>  
+                    <p:calendar id="cal" value="#{fillReport.incidentReports.dateTimeOfOccurrence}" required="true" showOn="button"/>  
+                </pe:fluidGridItem>
+           
+                <pe:fluidGridItem type="select" styleClass="select">  
+                        <div class="dynaFormLabel">  
+                            <p:outputLabel for="buildingCode" value="Building Name"/>  
+                        </div>  
+                    <p:selectOneMenu id="buildingCode" value="#{fillReport.buildingCode}" required="true" >  
+                             <f:selectItem itemLabel="Select One" itemValue="" noSelectionOption="false" />
+                             <f:selectItems value="#{fillReport.buildingList}" var="bL" itemLabel="#{bL.buildingName}" itemValue="#{bL.buildingCode}" />  
+                           </p:selectOneMenu> 
+                 </pe:fluidGridItem>  
+           
+               <pe:fluidGridItem type="input">  
+                        <div class="dynaFormLabel" style="width: 300px;">  
+                             <p:outputLabel for="locationDescription" value="Location Description" />  
+                         </div>  
+                   <p:inputText id="locationDescription" value="#{fillReport.incidentReports.locationDescription}" required="true"/>  
+               </pe:fluidGridItem>  
+           
+               <pe:fluidGridItem type="calendar" styleClass="calendar">  
+                        <div class="dynaFormLabel">  
+                            <p:outputLabel for="cal2" value="Reported on"/>  
+                        </div>  
+                   <p:calendar id="cal2" value="#{fillReport.incidentReports.reportedOn}" required="true" showOn="button"/>  
+               </pe:fluidGridItem>
+           
+
+                <pe:fluidGridItem type="input">  
+                          <div class="dynaFormLabel">  
+                                 <p:outputLabel for="reportedBy" value="Reported By"/>  
+                          </div>  
+                    <p:inputText id="reportedBy" value="#{fillReport.incidentReports.reportedBy.empNo}" required="true" disabled="true"/>  
+                </pe:fluidGridItem> 
+           
+               <pe:fluidGridItem type="input">  
+                        <div class="dynaFormLabel">  
+                               <p:outputLabel for="currentStatus" value="Current Status"/>  
+                        </div>  
+                   <p:inputText id="currentStatus" value="#{fillReport.incidentReports.currentStatus}" required="true" disabled="true"/>  
+               </pe:fluidGridItem> 
+           
+                   <pe:fluidGridItem type="select" styleClass="select">  
+                        <div class="dynaFormLabel">  
+                            <p:outputLabel for="reportTo" value="Report Marked To"/>  
+                        </div>  
+                       <p:inputText id="reportTo" value="#{fillReport.roleName}" required="false" disabled="true"/>  
+                </pe:fluidGridItem>  
+
+                <pe:fluidGridItem type="select" styleClass="select">
+                        <div class="dynaFormLabel" style="width: 300px">  
+                               <p:outputLabel for="isNewVersionRequired" value="Is New Version Required:"/>  
+                        </div>  
+                    <p:selectOneMenu id="isNewVersionRequired" value="#{fillReport.incidentReports.isNewVersionRequired}" required="true" disabled="true">  
+                                <f:selectItem itemLabel="No" itemValue="N" />        
+                               <f:selectItem itemLabel="Yes" itemValue="Y" />
+
+                           </p:selectOneMenu>
+               </pe:fluidGridItem> 
+           
+               <pe:fluidGridItem type="input">  
+                        <div class="dynaFormLabel">  
+                               <p:outputLabel for="newReportId" value="Old Report Id"/>  
+                        </div>  
+                   <p:inputText id="newReportId" value="#{fillReport.incidentReports.oldReportId}" disabled="true"/>  
+               </pe:fluidGridItem> 
+           
+           <pe:fluidGridItem type="input">  
+                        <div class="dynaFormLabel">  
+                               <p:outputLabel for="incidentSummary" value="Incident Summary"/>  
+                        </div>  
+               <p:inputTextarea id="incidentSummary" value="#{fillReport.incidentReports.incidentDetails}" />  
+               </pe:fluidGridItem> 
+           
+           
+               
+               
+           </pe:fluidGrid>
+           <p:commandButton value="Next" style="margin-top: 10px;"   action="#{fillReport.next(1)}"/>  
+  
+           
+         
+       </fieldset>
+              
+
+  
+              
+<h:outputStylesheet id="fluidGridCSS">  
+    .pe-fluidgrid-item {
+        width: 180px;  
+        height: 70px;  
+    }    
+    .pe-fluidgrid-item input {
+        width: 150px;  
+    }  
+    .pe-fluidgrid-item.calendar input {
+        width: 120px;  
+    }  
+    .pe-fluidgrid-item.select .ui-selectonemenu {  
+        width: 157px !important;  
+    }  
+    .pe-fluidgrid-item.select .ui-selectonemenu .ui-selectonemenu-label {  
+        width: 130px !important;  
+    }  
+    .dynaFormLabel {  
+        font-weight: bold;  
+        margin-bottom: 7px;  
+}  
+</h:outputStylesheet>
+            
+                            
+                        
+                    
+           
+            
+      </h:form>
+        
+</ui:define>
+   
+   </ui:composition>
+    
+        

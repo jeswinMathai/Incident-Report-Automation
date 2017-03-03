@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+	version="2.2">
+<application>
+	<resource-bundle>
+		<base-name>com.service.application</base-name>
+		<var>msg</var>
+	</resource-bundle>
+</application>
+
+
+
+<flow-definition id="createReport">
+	<flow-return id="endFlow">
+		<from-outcome>/home</from-outcome>
+	</flow-return>
+        <flow-return id="endFlow2">
+		<from-outcome>/ViewReport</from-outcome>
+	</flow-return>
+        <flow-return id="endFlow3">
+		<from-outcome>/ViewSignedReports</from-outcome>
+	</flow-return>
+</flow-definition>
+
+
+</faces-config>

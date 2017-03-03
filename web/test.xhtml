@@ -1,0 +1,78 @@
+
+<ui:composition template="/welcomePrimefaces2.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pe="http://primefaces.org/ui/extensions" 
+>
+    <ui:define name="Content">
+        <h:form id="mainForm">
+<p:growl autoUpdate="true"/>              
+              
+<pe:fluidGrid id="fluidGrid" value="#{fluidGridDynaFormController.items}" var="data"  
+              resizeBound="false" hGutter="20" widgetVar="fluidGridWdgt">  
+    <pe:fluidGridItem type="input">  
+        <div class="dynaFormLabel">  
+            <p:outputLabel for="txt" value="#{data.label}"/>  
+        </div>  
+        <p:inputText id="txt" value="#{data.value}" required="#{data.required}"/>  
+    </pe:fluidGridItem>  
+    <pe:fluidGridItem type="select" styleClass="select">  
+        <div class="dynaFormLabel">  
+            <p:outputLabel for="menu" value="#{data.label}"/>  
+        </div>  
+        <p:selectOneMenu id="menu" value="#{data.value}" required="#{data.required}">  
+            <f:selectItems value="#{data.selectItems}"/>  
+        </p:selectOneMenu>  
+    </pe:fluidGridItem>  
+    <pe:fluidGridItem type="calendar" styleClass="calendar">  
+        <div class="dynaFormLabel">  
+            <p:outputLabel for="cal" value="#{data.label}"/>  
+        </div>  
+        <p:calendar id="cal" value="#{data.value}" required="#{data.required}" showOn="button"/>  
+    </pe:fluidGridItem>  
+</pe:fluidGrid>  
+              
+<p:commandButton value="Submit" style="margin-top: 10px;"  
+                 process="fluidGrid" update=":mainForm:fluidGrid :mainForm:inputValues"  
+                 oncomplete="if(!args.validationFailed) {PF('inputValuesWidget').show();}"/>  
+  
+<p:dialog header="Input values" widgetVar="inputValuesWidget">  
+    <p:dataList id="inputValues" value="#{fluidGridDynaFormController.items}" var="item"  
+                style="margin:10px;">  
+        <h:outputText value="#{item.data.label} : #{item.data.value}" style="margin-right:15px;"/>  
+    </p:dataList>  
+</p:dialog>  
+              
+<h:outputStylesheet id="fluidGridCSS">  
+    .pe-fluidgrid-item {  
+        width: 160px;  
+        height: 60px;  
+    }  
+      
+    .pe-fluidgrid-item input {  
+        width: 150px;  
+    }  
+  
+    .pe-fluidgrid-item.calendar input {  
+        width: 120px;  
+    }  
+  
+    .pe-fluidgrid-item.select .ui-selectonemenu {  
+        width: 157px !important;  
+    }  
+  
+    .pe-fluidgrid-item.select .ui-selectonemenu .ui-selectonemenu-label {  
+        width: 130px !important;  
+    }  
+      
+    .dynaFormLabel {  
+        font-weight: bold;  
+        margin-bottom: 7px;  
+    }  
+</h:outputStylesheet>  
+        </h:form>
+    </ui:define>
+</ui:composition>

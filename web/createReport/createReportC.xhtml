@@ -1,0 +1,77 @@
+<ui:composition template="home.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pe="http://primefaces.org/ui/extensions" 
+>
+    <ui:define name="Content">
+       
+       <p:growl id="message" showDetail="true" />
+       
+         <h:form id="form">
+           
+          
+       
+           <h:panelGroup id="table1" style="text-align: center" >
+               <fieldset >
+              
+                        <h4>Create Report: Attach Documents </h4>
+                    
+             </fieldset>
+       
+                </h:panelGroup>
+         </h:form>
+       <p:growl autoUpdate="true"/>
+    
+                <h:form id="fom" enctype="multipart/form-data">
+                       <fieldset>  
+                <p:growl id="messages" showDetail="true" />
+                 <pe:fluidGrid id="fluidGrid" resizeBound="false" hGutter="200" widgetVar="fluidGridWdgt">
+                     
+                     <pe:fluidGridItem type="input">  
+                        <div class="dynaFormLabel">  
+                            <p:outputLabel for="docName" value="Document Name"/>  
+                        </div>  
+                         <p:inputText id="docName" value="#{fillReport.doc.docFileName}" required="true"/>  
+                      </pe:fluidGridItem>  
+           
+                <pe:fluidGridItem type="upload" >  
+                    <div class="dynaFormLabel">  
+                            <p:outputLabel for="fileId" value="Upload Document:"/>  
+                        </div>  
+                     
+                    <p:fileUpload id="fileId" fileUploadListener="#{fillReport.file.fileUpload}" mode="advanced" required="true" update=":fom:fluidGrid:docSub"/> 
+                </pe:fluidGridItem>
+                     
+                       <pe:fluidGridItem type="Button" >  
+                    <div class="dynaFormLabel">  
+                            <p:outputLabel for="docSub" value="Submit Document"/>  
+                        </div>  
+                     
+                           <p:commandButton id="docSub" value="Add Document" ajax="false" actionListener="#{fillReport.uploadfile()}" disabled="#{!fillReport.checkFile()}"/>
+                </pe:fluidGridItem>
+               
+                
+               
+                  </pe:fluidGrid>
+                <br></br>
+                <br></br>
+                <br></br>
+                    
+               </fieldset>
+                </h:form>
+       <h:form>
+        <p:commandButton value="Back" style="margin-top: 10px;"   action="createReportB" immediate="true"/>
+        <p:commandButton value="List Documents" style="margin-top: 10px;"   action="listDocuments" immediate="true"/>  
+           <p:commandButton value="Submit Report" style="margin-top: 10px;"   action="#{fillReport.commit()}"/>  
+    
+         
+         
+         </h:form>
+</ui:define>
+   
+   </ui:composition>
+    
+        

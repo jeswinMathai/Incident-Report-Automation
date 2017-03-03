@@ -1,0 +1,213 @@
+<ui:composition template="home.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pe="http://primefaces.org/ui/extensions" 
+>
+    <ui:define name="Content">
+       
+       <p:growl id="message" showDetail="true" />
+       <h:form id="form">
+           
+          
+       
+           <h:panelGroup id="table1" style="text-align: center" >
+               <fieldset >
+              
+                        <h4>Create Report: Persons Involved</h4>
+                    
+             </fieldset>
+       
+                </h:panelGroup>
+       <p:growl autoUpdate="true"/>
+       <br>
+       </br>
+       <fieldset>
+              
+       <pe:fluidGrid id="fluidGrid" resizeBound="false" hGutter="200" widgetVar="fluidGridWdgt">  
+           
+              <pe:fluidGridItem type="input">  
+                        <div class="dynaFormLabel">  
+                            <p:outputLabel for="name" value="Name"/>  
+                        </div>  
+                  <p:inputText id="name" value="#{fillReport.person.name}" required="true" />  
+              </pe:fluidGridItem>  
+                <pe:fluidGridItem type="select" styleClass="select">
+                        <div class="dynaFormLabel" style="width: 300px">  
+                               <p:outputLabel for="havingBarcCard" value="Having BARC Card?"/>  
+                        </div>  
+                    <p:selectOneMenu id="havingBarcCard" value="#{fillReport.person.havingBarcCard}" required="true" >  
+                                <f:selectItem itemLabel="Select One" itemValue="" noSelectionOption="false" />
+                                <f:selectItem itemLabel="Yes" itemValue="Y" />
+                                <f:selectItem itemLabel="No" itemValue="N" />        
+                             
+
+                           </p:selectOneMenu>
+               </pe:fluidGridItem>
+            <pe:fluidGridItem type="select" styleClass="select">
+                        <div class="dynaFormLabel" style="width: 300px">  
+                               <p:outputLabel for="cardType" value="Card Type?"/>  
+                        </div>  
+                <p:selectOneMenu id="cardType" value="#{fillReport.person.cardType}" required="true" >  
+                                <f:selectItem itemLabel="Select One" itemValue="" noSelectionOption="false" />
+                                <f:selectItem itemLabel="LEP" itemValue="LEP" />        
+                               <f:selectItem itemLabel="BARC Employee" itemValue="B_EMP" />
+                               <f:selectItem itemLabel="DAE Employee" itemValue="D_EMP" />
+                               <f:selectItem itemLabel="TEP" itemValue="TEP" />
+                               <f:selectItem itemLabel="CEP" itemValue="CEP" />
+
+                               
+                 </p:selectOneMenu>
+               </pe:fluidGridItem>
+             <pe:fluidGridItem type="input">  
+                        <div class="dynaFormLabel">  
+                            <p:outputLabel for="id" value="Id"/>  
+                        </div>  
+                 <p:inputText id="id" value="#{fillReport.person.id}" required="true" />  
+              </pe:fluidGridItem>  
+           
+              <pe:fluidGridItem type="input">  
+                        <div class="dynaFormLabel">  
+                            <p:outputLabel for="designation" value="Designation"/>  
+                        </div>  
+                    <p:inputText id="designation" value="#{fillReport.person.designation}" required="true"/>  
+              </pe:fluidGridItem>  
+           
+           
+              <pe:fluidGridItem type="input">  
+                        <div class="dynaFormLabel">  
+                            <p:outputLabel for="divisionCompany" value="Division/Company"/>  
+                        </div>  
+                 <p:inputText id="divisionCompany" value="#{fillReport.person.divisionCompany}" required="true"/>  
+              </pe:fluidGridItem>  
+           <pe:fluidGridItem type="input">  
+                        <div class="dynaFormLabel">  
+                            <p:outputLabel for="address" value="Address"/>  
+                        </div>  
+               <p:inputText id="address" value="#{fillReport.person.address}" required="true"/>  
+              </pe:fluidGridItem>  
+           
+           <pe:fluidGridItem type="input">  
+                        <div class="dynaFormLabel">  
+                            <p:outputLabel for="street" value="Street"/>  
+                        </div>  
+               <p:inputText id="street" value="#{fillReport.person.street}" required="true"/>  
+              </pe:fluidGridItem>  
+           
+           <pe:fluidGridItem type="input">  
+                        <div class="dynaFormLabel">  
+                            <p:outputLabel for="city" value="City"/>  
+                        </div>  
+               <p:inputText id="city" value="#{fillReport.person.city}" required="true"/>  
+              </pe:fluidGridItem>  
+       
+           <pe:fluidGridItem type="input">  
+                        <div class="dynaFormLabel">  
+                            <p:outputLabel for="state" value="State"/>  
+                        </div>  
+               <p:inputText id="state" value="#{fillReport.person.state}" required="true"/>  
+              </pe:fluidGridItem>  
+           
+           
+           <pe:fluidGridItem type="input">  
+                        <div class="dynaFormLabel">  
+                            <p:outputLabel for="country" value="Country"/>  
+                        </div>  
+               <p:inputText id="country" value="#{fillReport.person.country}" required="true"/>  
+            </pe:fluidGridItem>  
+           
+           <pe:fluidGridItem type="input">  
+                        <div class="dynaFormLabel">  
+                            <p:outputLabel for="contactNo" value="contactNo"/>  
+                        </div>  
+               <p:inputText id="contactNo" value="#{fillReport.person.contactNo}" required="true"/>  
+            </pe:fluidGridItem>  
+           
+                  <pe:fluidGridItem type="select" styleClass="select">
+                        <div class="dynaFormLabel" style="width: 300px">  
+                               <p:outputLabel for="isAccused" value="Is Accused?"/>  
+                        </div>  
+                      <p:selectOneMenu id="isAccused" value="#{fillReport.person.isAccused}" required="true" >  
+                               <f:selectItem itemLabel="Select One" itemValue="" noSelectionOption="false" />
+                               <f:selectItem itemLabel="Yes" itemValue="Y" />
+                               <f:selectItem itemLabel="No" itemValue="N" />        
+                               
+
+                           </p:selectOneMenu>
+               </pe:fluidGridItem>
+           
+                  <pe:fluidGridItem type="select" styleClass="select">
+                        <div class="dynaFormLabel" style="width: 300px">  
+                               <p:outputLabel for="isActive" value="Is Victim?"/>  
+                        </div>  
+                      <p:selectOneMenu id="isActive" value="#{fillReport.person.isVictim}" required="true" > 
+                               <f:selectItem itemLabel="Select One" itemValue="" noSelectionOption="false" />
+                               <f:selectItem itemLabel="Yes" itemValue="Y" />
+                               <f:selectItem itemLabel="No" itemValue="N" />        
+                               
+
+                           </p:selectOneMenu>
+               </pe:fluidGridItem>
+           
+                  <pe:fluidGridItem type="select" styleClass="select">
+                        <div class="dynaFormLabel" style="width: 300px">  
+                               <p:outputLabel for="isWitness" value="Is Witness?"/>  
+                        </div>  
+                      <p:selectOneMenu id="isWitness" value="#{fillReport.person.isWitness}" required="true" >  
+                                <f:selectItem itemLabel="Select One" itemValue="" noSelectionOption="false" />
+                                <f:selectItem itemLabel="Yes" itemValue="Y" />                                
+                                <f:selectItem itemLabel="No" itemValue="N" />        
+                           </p:selectOneMenu>
+               </pe:fluidGridItem>
+       </pe:fluidGrid>
+           </fieldset>
+       <p:commandButton value="Back" style="margin-top: 10px;"   action="createReportA" immediate="true"/>
+           <p:commandButton value="List Persons" style="margin-top: 10px;"   action="listPersons" immediate="true"/>  
+           <p:commandButton value="Add Persons" style="margin-top: 10px;"   actionListener="#{fillReport.addPerson()}" update=":form:fluidGrid"/>  
+               <p:commandButton value="Next" style="margin-top: 10px;"   action="#{fillReport.next(3)}" immediate="true"/>  
+        
+  
+           
+         
+       
+              
+
+  
+              
+<h:outputStylesheet id="fluidGridCSS">  
+    .pe-fluidgrid-item {
+        width: 180px;  
+        height: 70px;  
+    }    
+    .pe-fluidgrid-item input {
+        width: 150px;  
+    }  
+    .pe-fluidgrid-item.calendar input {
+        width: 120px;  
+    }  
+    .pe-fluidgrid-item.select .ui-selectonemenu {  
+        width: 157px !important;  
+    }  
+    .pe-fluidgrid-item.select .ui-selectonemenu .ui-selectonemenu-label {  
+        width: 130px !important;  
+    }  
+    .dynaFormLabel {  
+        font-weight: bold;  
+        margin-bottom: 7px;  
+    }  
+</h:outputStylesheet>
+            
+                            
+                        
+                    
+           
+            
+      </h:form>
+        
+</ui:define>
+   
+   </ui:composition>
+    
+        

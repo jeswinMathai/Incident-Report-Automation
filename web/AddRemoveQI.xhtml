@@ -1,0 +1,126 @@
+<ui:composition template="home.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"    
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:define name="Content">
+       
+       <p:growl id="message" showDetail="true" />
+       <h:form id="form">
+     
+               
+      
+           <h:panelGroup id="tab" >
+               <p:panelGrid style="width:100%">
+                <f:facet name="header">     
+                    <p:row>
+                        <p:column>select an Incident</p:column>
+                        <p:column>
+                            <h:selectOneMenu value="#{viewIQR.id}"   >
+                   <p:ajax listener="#{viewIQR.onIncidentChange()}" />
+                   <f:selectItem itemLabel="Select One" itemValue="" noSelectionOption="true" />
+                   <f:selectItems value="#{viewIQR.ims}" var="ims" itemLabel="#{ims.name}" itemValue="#{ims.id}" />
+                </h:selectOneMenu>
+                            </p:column>
+                        <p:column>
+               <p:commandButton action="#{viewIQR.onIncidentChange()}" value="Next" update=":form:table1"/>
+                        </p:column>
+                    </p:row>
+                </f:facet> 
+               </p:panelGrid>
+           </h:panelGroup>
+     
+       
+               <h:panelGroup id="table1" >
+                
+                   <p:dataTable var="irc" value="#{viewIQR.ircQ}"  >
+                                    <f:facet name="header">
+                                        <h4>Question Master : #{viewIQR.returnIm()}</h4>
+                                    </f:facet>
+                                       <p:column headerText="Id">
+                                            <h:outputText value="#{irc.id}" />
+                                        </p:column>
+
+                                        <p:column headerText="Question Description">
+                                            <h:outputText value="#{irc.description}" />
+                                        </p:column>
+
+                                        <p:column headerText="Is Mandatory">
+                                            <h:selectOneMenu value="#{irc.isMadatory}" style="width:100%">
+                                                     <f:selectItem itemLabel="Yes" itemValue="Y" />
+                                <f:selectItem itemLabel="No" itemValue="N" />
+                                            </h:selectOneMenu>
+                                        </p:column>
+
+                                        <p:column headerText="Can Be Repeated">
+                                            <h:selectOneMenu value="#{irc.canBeRepeated}" style="width:100%">
+                                                     <f:selectItem itemLabel="Yes" itemValue="Y" />
+                                <f:selectItem itemLabel="No" itemValue="N" />
+                                                </h:selectOneMenu>
+                                        </p:column>
+                                        <p:column headerText="Add">
+                                            <p:commandButton actionListener="#{viewIQR.add(irc.id,irc.isMadatory,irc.canBeRepeated)}" value="Add" update=":form:table1" disabled="#{!viewIQR.next}"/>
+                                        </p:column>
+                                 
+                            </p:dataTable>
+              
+                   <br></br>
+                   <br></br>
+                   <br></br>
+                   <br></br>
+                  
+           <p:dataTable var="irc" value="#{viewIQR.ircI}" >
+                 <f:facet name="header">
+                                 <h4>Existing Questions </h4>
+                                    </f:facet>
+                                        <p:column headerText="Id">
+                                            <h:outputText value="#{irc.id}" />
+                                        </p:column>
+                                        <p:column headerText="Question Description">
+                                            <h:outputText value="#{irc.description}" />
+                                        </p:column>
+                                        <p:column headerText="Is Mandatory">
+                                            <h:outputText value="#{irc.isMadatory}" />
+                                        </p:column>
+                                        <p:column headerText="Can Be Repeated">
+                                            <h:outputText value="#{irc.canBeRepeated}" />
+                                        </p:column>
+               <p:column headerText="Remove">
+                                     <p:commandButton action="#{viewIQR.remove(irc.id)}" value="Remove" update=":form:table1" disabled="#{!viewIQR.next}"/>
+                                 </p:column>
+                            </p:dataTable>
+                   <p:panelGrid style="margin-top:10px;width: 100%" id="upd" >
+    <f:facet name="header">
+        <p:row>
+            <p:column colspan="2">
+                <p:commandButton actionListener="#{viewIQR.commitIRc()}" value="Confirm" update=":form:table1" disabled="#{!viewIQR.checkChange()}" >
+                <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+                </p:commandButton>
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                </p:confirmDialog>
+                
+                
+            </p:column>
+            <p:column colspan="2">
+                <p:commandButton action="#{viewIQR.onIncidentChange()}" value="Discard" update=":form:table1" disabled="#{!viewIQR.checkChange()}"  />
+                
+                      </p:column>
+         
+        </p:row>
+        </f:facet>
+                </p:panelGrid>
+       </h:panelGroup>
+         
+              
+       </h:form>
+  
+        
+</ui:define>
+   
+   </ui:composition>
+    
+        

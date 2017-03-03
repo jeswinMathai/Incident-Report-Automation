@@ -1,0 +1,54 @@
+<ui:composition template="home.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+>
+    <ui:define name="Content">
+       
+       <h:form id="form">
+           <p:dataTable  var="qM" value="#{LazyViewQm.lazyModel}" paginator="true" rows="10"
+                 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                 rowsPerPageTemplate="5,10,15" selectionMode="single" selection="#{LazyViewQm.selectedQm}" id="qMTable" lazy="true">
+               <p:ajax event="rowSelect" listener="#{LazyViewQm.onRowSelect}" update=":form:qMDetail" oncomplete="PF('qMDialog').show()" />
+
+       <f:facet name="header">
+            <h4>List View and Search: Question Master</h4>
+           
+        </f:facet>
+               <p:column headerText="Question Id" sortBy="#{qM.id}" filterBy="#{qM.id}">
+            <h:outputText value="#{qM.id}" />
+        </p:column>
+               <p:column headerText="Question Description" sortBy="#{qM.description}" filterBy="#{qM.description}">
+                   <h:outputText value="#{qM.description}" />
+        </p:column>
+              <p:column headerText="Is  Active?" sortBy="#{qM.isActive}" filterBy="#{qM.isActive}">
+                  <h:outputText value="#{qM.isActive}" />
+        </p:column>
+    </p:dataTable>
+          
+           <p:dialog header="QM Detail" widgetVar="qMDialog" modal="false" showEffect="fade" hideEffect="fade" resizable="false">
+        <p:outputPanel id="qMDetail" style="text-align:center;">
+            <p:panelGrid  columns="2" rendered="#{not empty LazyViewQm.selectedQm}" columnClasses="label,value">
+               
+ 
+                <h:outputText value="Question Id:" />
+                <h:outputText value="#{LazyViewQm.selectedQm.id}" />
+ 
+                <h:outputText value="Question Description" />
+                <h:outputText value="#{LazyViewQm.selectedQm.description}" />
+ 
+                <h:outputText value="Is Active?:" />
+                <h:outputText value="#{LazyViewQm.selectedQm.isActive}" />
+ 
+            </p:panelGrid>
+        </p:outputPanel>
+    </p:dialog>
+ 
+      </h:form>
+</ui:define>
+   
+   </ui:composition>
+    
+        

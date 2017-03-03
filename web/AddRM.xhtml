@@ -1,0 +1,138 @@
+<ui:composition template="home.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+>
+    <ui:define name="Content">
+       
+       <p:growl id="message" showDetail="true" />
+       <h:form id="form">
+          <p:dataTable  var="rM" value="#{LazyViewRm.lazyModel}" paginator="true" rows="10" 
+                 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                 rowsPerPageTemplate="5,10,15" selectionMode="single" selection="#{LazyViewRm.selectedRm}" id="rMTable" lazy="true">
+        <p:ajax event="rowSelect" listener="#{LazyViewRm.onRowSelect}" update=":form:rMDetail" oncomplete="PF('rMDialog').show()" />
+<f:facet name="header">
+            <h4>Add Role: Role Master</h4>
+           
+        </f:facet>
+        <p:column headerText="Role Id" sortBy="#{rM.id}" filterBy="#{rM.id}">
+            <h:outputText value="#{rM.id}" />
+        </p:column>
+        <p:column headerText="Role Name" sortBy="#{rM.name}" filterBy="#{rM.name}">
+            <h:outputText value="#{rM.name}" />
+        </p:column>
+        <p:column headerText="Role Weight" sortBy="#{rM.weight}" filterBy="#{rM.weight}">
+            <h:outputText value="#{rM.weight}" />
+        </p:column>
+        <p:column headerText="Is Report Creation Allowed?" sortBy="#{rM.isReportCreationAllowed}" filterBy="#{rM.isReportCreationAllowed}">
+            <h:outputText value="#{rM.isReportCreationAllowed}" />
+        </p:column>
+         <p:column headerText="Is  Active?" sortBy="#{rM.isActive}" filterBy="#{rM.isActive}">
+                  <h:outputText value="#{rM.isActive}" />
+        </p:column>
+    </p:dataTable>
+          
+           <p:dialog header="RM Detail" widgetVar="rMDialog" modal="false" showEffect="fade" hideEffect="fade" resizable="false">
+        <p:outputPanel id="rMDetail" style="text-align:center;">
+            <p:panelGrid  columns="2" rendered="#{not empty LazyViewRm.selectedRm}" columnClasses="label,value">
+               
+ 
+              <h:outputText value="Role Id:" />
+                <h:outputText value="#{LazyViewRm.selectedRm.id}" />
+ 
+                <h:outputText value="Role Name" />
+                <h:outputText value="#{LazyViewRm.selectedRm.name}" />
+ 
+                <h:outputText value="Role Weight" />
+                <h:outputText value="#{LazyViewRm.selectedRm.weight}" />
+ 
+                <h:outputText value="Is Report Creation Allowed?" />
+                <h:outputText value="#{LazyViewRm.selectedRm.isReportCreationAllowed}" />
+ 
+                <h:outputText value="Is Active?:" />
+                <h:outputText value="#{LazyViewRm.selectedRm.isActive}" />
+            </p:panelGrid>
+        </p:outputPanel >
+               
+    </p:dialog>
+           <br></br>
+        
+               <p:panelGrid style="width: 100%" id="add" >
+    <f:facet name="header">
+        <p:row>
+          
+            <p:column colspan="2"><h:outputLabel value="Role Id: #{RM.setId(LazyViewRm.getId(0))}"/>
+                
+                <p:inputText id="field" value="#{RM.id}">
+                        
+                </p:inputText>
+                </p:column>
+            <p:column colspan="2"><h:outputLabel value="Role Name:#{RM.setName(null)} "/>
+                <p:inputText id="field2" value="#{RM.name}" />
+            </p:column>
+           
+             <p:column colspan="2"><h:outputLabel value="Role Weight:#{RM.setWeight(0)} "/>
+                 <p:inputText id="field3" value="#{RM.weight}" />
+            </p:column>
+            <p:column colspan="10"><h:outputLabel value="Is Report Creation Allowed? "/>
+                <p:selectOneMenu id="field4" value="#{RM.isReportCreationAllowed}" style="width:125px">
+                                <f:selectItem itemLabel="Yes" itemValue="Y" />
+                                <f:selectItem itemLabel="No" itemValue="N" />
+                            </p:selectOneMenu>
+            </p:column>
+             <p:column colspan="10"><h:outputLabel value="is Active? "/>
+                            <p:selectOneMenu id="field5" value="#{RM.isActive}" style="width:125px">
+                                <f:selectItem itemLabel="Yes" itemValue="Y" />
+                                <f:selectItem itemLabel="No" itemValue="N" />
+                            </p:selectOneMenu>
+            </p:column>
+           
+            
+        </p:row>
+ 
+    </f:facet>
+               </p:panelGrid>
+                    <p:panelGrid style="width: 100%" id="addd" >
+    <f:facet name="header">
+        <p:row>
+          <p:column colspan="2">
+                <p:commandButton id="addB" action="#{LazyViewRm.CheckId(RM)}" value="Add" update=":form:rMTable,:form:addd,:form:add"  resetValues="true" />
+                
+                      </p:column>
+            <p:column colspan="2">
+                <p:commandButton actionListener="#{LazyViewRm.commitRm('new')}" value="Confirm" update=":form:rMTable,:form:add,:message,:form:addd" disabled="#{LazyViewRm.newRec('new')}" >
+                <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+                </p:commandButton>
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                </p:confirmDialog>
+                
+                
+            </p:column>
+            <p:column colspan="2">
+                <p:commandButton action="#{LazyViewRm.init()}" value="Discard" update=":form:rMTable,:form:addd" disabled="#{LazyViewRm.newRec('new')}"  />
+                
+                      
+            </p:column>
+        </p:row>
+    </f:facet>
+                    </p:panelGrid>
+          
+                            
+              
+            
+                            
+                        
+                    
+           
+            
+      </h:form>
+        
+</ui:define>
+   
+   </ui:composition>
+    
+        

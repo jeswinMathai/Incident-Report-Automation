@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+          
+        <f:metadata>
+            <f:viewParam name="no" value="#{test.no}" required="true" />
+    <f:viewParam name="nos" value="#{test.nos}" required="true" />
+    <f:viewParam name="sum" value="#{test.sum}" required="true" />
+    <f:event type="preRenderView" listener="#{test.init}" />
+</f:metadata>
+    </h:head>
+    <h:body>
+        <p:panelGrid columns="2" style="position: absolute; top: 250px; left: 500px;">
+               <f:facet name="footer">  
+           <h:outputText value="no1: " />
+                        <h:outputText value="#{test.no}" />   
+                        <br>
+                            
+                        </br>
+                        <h:outputText value="no2: " />
+                         <h:outputText value="#{test.nos}" />   
+                         <br>
+                             
+                         </br>
+                         <h:outputText value="sum: " />
+                          <h:outputText value="#{test.sum}" />
+               </f:facet>
+        </p:panelGrid>
+    </h:body>
+</html>
+

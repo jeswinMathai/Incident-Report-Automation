@@ -1,0 +1,98 @@
+<ui:composition template="home.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"    
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:define name="Content">
+       
+       <p:growl id="message" showDetail="true" />
+       <h:form id="form">
+     
+               
+      
+           <h:panelGroup id="tab" >
+               <p:panelGrid style="width:100%">
+                <f:facet name="header">     
+                    <p:row>
+                        <p:column>Select a Question</p:column>
+                        <p:column>
+                            <h:selectOneMenu value="#{viewIQR.qid}"   >
+                   
+                   <f:selectItem itemLabel="Select One" itemValue="" noSelectionOption="true" />
+                   <f:selectItems value="#{viewIQR.qms}" var="qms" itemLabel="#{qms.description}" itemValue="#{qms.id}" />
+                </h:selectOneMenu>
+                            </p:column>
+                        <p:column>
+               <p:commandButton actionListener="#{viewIQR.onChangeViewI()}" value="Next" update=":form:table1"/>
+                        </p:column>
+                    </p:row>
+                </f:facet> 
+               </p:panelGrid>
+           </h:panelGroup>
+     
+       
+               <h:panelGroup id="table1" >
+                
+                   <p:dataTable id="tbl" var="ims" value="#{viewIQR.ircI}"  scrollable="true" scrollHeight="300">
+                                    <f:facet name="header">
+                                        <h4>Associated Incidents  : #{viewIQR.returnQm()}</h4>
+                                    </f:facet>
+                                       <p:column headerText="Id">
+                                            <h:outputText value="#{ims.id}" />
+                                        </p:column>
+
+                                        <p:column headerText="Incident Name">
+                                            <h:outputText value="#{ims.description}" />
+                                        </p:column>
+
+                                   <p:column headerText="Is Active?">
+                                       <h:outputText value="#{ims.isMadatory}" />
+                                        </p:column>
+                                       
+                                        
+                                     
+                               
+                            </p:dataTable>
+                    <h3>Export Selected Data Only</h3>
+    <h:panelGroup id="exp">
+        <h:panelGroup  rendered="#{!viewIQR.isEmpty()}" >
+        <h:commandLink >
+            <p:graphicImage value="/images/excel.png" />
+            <p:dataExporter type="xls" target="tbl" fileName="Incidents" postProcessor="#{LazyViewRm.postProcessXLS}" />
+       
+    </h:commandLink>
+ 
+        <h:commandLink>
+            <p:graphicImage value="/images/pdf.png" />
+            <p:dataExporter type="pdf" target="tbl" fileName="Incident"  preProcessor="#{LazyViewRm.preProcessPDF}" />
+
+        </h:commandLink>
+    </h:panelGroup>
+      
+      
+    <h:panelGroup  rendered="#{viewIQR.isEmpty()}" >
+        
+            <p:graphicImage value="/images/excel1.png" />
+   
+       
+ 
+   
+            <p:graphicImage value="/images/pdf2.png"  />
+   
+    </h:panelGroup>
+              
+                 
+       </h:panelGroup>
+               </h:panelGroup>
+         
+              
+       </h:form>
+  
+        
+</ui:define>
+   
+   </ui:composition>
+    
+        

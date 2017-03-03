@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html dir="ltr" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<title></title>
+<style type="text/css">
+input {text-align:center}
+.inputclass{
+font-family:arial, helvetica;
+font-weight:bold;
+}
+</style>
+
+<script type="text/javascript">
+
+function makeApplet(appletString,appletString2){
+return '<APPLET NAME="QuotePage"'+
+'            CODE="appletcode.NewClass"'+
+'            archive="AppletCode.jar"'+
+'            HEIGHT="55" WIDTH=250">'+
+'    <PARAM NAME="no1" VALUE="'+appletString+'">'+
+'    <PARAM NAME="no2" VALUE="'+appletString2+'">'+
+
+
+
+
+'    <\/APPLET>';
+}
+
+function appletParams(){
+var appletString = document.form01.no.value;
+var appletString2 =  document.form01.nos.value;
+var c=document.getElementById("appletContainer");
+c.innerHTML=makeApplet(appletString,appletString2);
+return false;
+}
+
+</script>
+</head>
+
+<body>
+
+<form name="form01" method="get" action="http://quote.barchart.com/quote.asp" onsubmit="return appletParams()">
+
+<input type="text" name="no" size="8">
+<input type="text" name="nos" size="8">
+<input type="submit" size="8">
+<div id="appletContainer">
+    <APPLET NAME="QuotePage"
+            code="appletcode.NewClass"
+           archive="AppletCode.jar"
+            HEIGHT="55" WIDTH="250">
+    <PARAM NAME="no1" VALUE="0">
+    <PARAM NAME="no2" VALUE="0">
+
+    </APPLET>
+    </div>
+<p>
+
+</form>
+<p>
+<b>Enter new symbol above</b>
+</body>
+</html>

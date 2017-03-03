@@ -1,0 +1,42 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+	<f:view>
+		<h:form>
+			<h1>JavaBeat JSF 2.2 Examples</h1>
+			<h2>JSF2 FlowScoped Example</h2>
+			<br/>
+			<h:outputText value="Page # #{register.index}" style="font-size:15px;"/>
+			<br/>
+			<h:outputText value="Academic Information:"/>
+			<br/>
+			<h:outputText value="Enter Major:"/>#{' '}<h:inputText value="#{register.major}"></h:inputText>
+			<br/>
+			<h:outputText value="Enter Graduate Year:"/>#{' '}<h:inputText value="#{register.graduateYear}"></h:inputText>
+			<br/>
+			<h:commandButton value="Back" action="registera"></h:commandButton>
+			<h:commandButton value="Save" action="#{register.save}"></h:commandButton>
+			<h:commandButton value="New Student" action="register"></h:commandButton>
+			<h:commandButton value="End Flow" action="/index"></h:commandButton>
+			<br/>
+			<h:dataTable value="#{register.students}" var="student" border="1">
+				<f:facet name="header">
+					<h:outputText value="Registerd Students"></h:outputText>
+				</f:facet>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Name"/>
+					</f:facet>
+					<h:outputText value="#{student.name}"></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Major"/>
+					</f:facet>
+					<h:outputText value="#{student.major}"></h:outputText>
+				</h:column>
+			</h:dataTable>
+		</h:form>
+	</f:view>
+</html>

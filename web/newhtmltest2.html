@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html dir="ltr" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<title></title>
+<style type="text/css">
+input {text-align:center}
+.inputclass{
+font-family:arial, helvetica;
+font-weight:bold;
+}
+</style>
+
+<script type="text/javascript">
+
+function makeApplet(){
+return '<APPLET NAME="QuotePage"'+
+'            CODE="appletcode.NewClass"'+
+'            archive="AppletCode.jar"'+
+'            HEIGHT="55" WIDTH=250">'+
+'    <PARAM NAME="message" VALUE="'+arguments[0]+'">'+
+
+
+
+
+'    <\/APPLET>';
+}
+
+function appletParams(){
+var appletString = "\'Stocks\, " + document.form01.mess.value;
+var c=document.getElementById("appletContainer");
+c.innerHTML=makeApplet(appletString);
+return false;
+}
+
+</script>
+</head>
+
+<body>
+
+<form name="form01" method="get" action="http://quote.barchart.com/quote.asp" onsubmit="return appletParams()">
+
+<input type="text" name="mess" size="8">
+<input type="submit" size="8">
+<div id="appletContainer">
+    <APPLET NAME="QuotePage"
+            code="appletcode.NewClass"
+           archive="AppletCode.jar"
+            HEIGHT="55" WIDTH="250">
+    <PARAM NAME="messag" VALUE="'Stocks,CVX">
+
+    </APPLET>
+    </div>
+<p>
+<input type="hidden" name="code" value="BSTK">
+</form>
+<p>
+<b>Enter new symbol above</b>
+</body>
+</html>

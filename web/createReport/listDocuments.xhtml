@@ -1,0 +1,104 @@
+<ui:composition template="home.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pe="http://primefaces.org/ui/extensions" 
+>
+    <ui:define name="Content">
+       
+       <p:growl id="message" showDetail="true" />
+       <h:form id="form">
+           
+          
+       
+           <h:panelGroup id="table1" style="text-align: center" >
+               <fieldset >
+              
+                        <h4>Documents Attached</h4>
+                    
+             </fieldset>
+       
+                </h:panelGroup>
+       <p:growl autoUpdate="true"/>
+       <br>
+       </br>
+   
+           
+       <p:dataTable id="doc" var="doc" value="#{fillReport.docs}">
+               <f:facet name="header">
+          List Of Documents Attached
+                </f:facet>
+               <p:column headerText="S.No">
+                   <h:outputText value="#{doc.srNo}" />
+                </p:column>
+           
+               <p:column headerText="Document Name">
+                   <h:outputText value="#{doc.docFileName}" />
+                </p:column>
+               
+               <p:column headerText="UploadedBy">
+                   <h:outputText value="#{doc.uploadedBy.empNo}" />
+                </p:column>
+               
+               <p:column headerText="Uploaded On">
+                   <h:outputText value="#{doc.uploadedOn}" />
+                </p:column>   
+           <p:column headerText="Delete">
+               <p:commandButton value="Delete" actionListener="#{fillReport.removeDoc(doc)}" update=":form"/>
+                </p:column>
+               
+              
+               
+               
+           </p:dataTable>
+               
+              
+       
+        
+           <p:commandButton value="Back" style="margin-top: 10px;"   action="createReportC"/>  
+           <p:commandButton value="Next" style="margin-top: 10px;"   action="createReportC"/>  
+  
+           
+         
+    
+              
+
+  
+              
+<h:outputStylesheet id="fluidGridCSS">  
+    .pe-fluidgrid-item {
+        width: 180px;  
+        height: 70px;  
+    }    
+    .pe-fluidgrid-item input {
+        width: 150px;  
+    }  
+    .pe-fluidgrid-item.calendar input {
+        width: 120px;  
+    }  
+    .pe-fluidgrid-item.select .ui-selectonemenu {  
+        width: 157px !important;  
+    }  
+    .pe-fluidgrid-item.select .ui-selectonemenu .ui-selectonemenu-label {  
+        width: 130px !important;  
+    }  
+    .dynaFormLabel {  
+        font-weight: bold;  
+        margin-bottom: 7px;  
+    }  
+</h:outputStylesheet>
+            
+                            
+                        
+                    
+           
+            
+      </h:form>
+        
+</ui:define>
+   
+   </ui:composition>
+    
+        

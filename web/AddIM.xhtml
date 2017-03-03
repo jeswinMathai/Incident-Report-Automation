@@ -1,0 +1,107 @@
+<ui:composition template="home.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+>
+    <ui:define name="Content">
+       
+       <p:growl id="message" showDetail="true" />
+       <h:form id="form">
+          <p:dataTable  var="iM" value="#{LazyView.lazyModel}" paginator="true" rows="10" 
+                 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                 rowsPerPageTemplate="5,10,15" selectionMode="single" selection="#{LazyView.selectedIm}" id="iMTable" lazy="true">
+        <p:ajax event="rowSelect" listener="#{LazyView.onRowSelect}" update=":form:iMDetail" oncomplete="PF('iMDialog').show()" />
+<f:facet name="header">
+            <h4>Add Incidents: Incident Master</h4>
+           
+        </f:facet>
+        <p:column headerText="Incident Id" sortBy="#{iM.id}" filterBy="#{iM.id}">
+            <h:outputText value="#{iM.id}" />
+        </p:column>
+        <p:column headerText="Incident Name" sortBy="#{iM.name}" filterBy="#{iM.name}">
+                  <h:outputText value="#{iM.name}" />
+        </p:column>
+              <p:column headerText="Is  Active?" sortBy="#{iM.isActive}" filterBy="#{iM.isActive}">
+                  <h:outputText value="#{iM.isActive}" />
+        </p:column>
+    </p:dataTable>
+          
+           <p:dialog header="IM Detail" widgetVar="iMDialog" modal="false" showEffect="fade" hideEffect="fade" resizable="false">
+        <p:outputPanel id="iMDetail" style="text-align:center;">
+            <p:panelGrid  columns="2" rendered="#{not empty LazyView.selectedIm}" columnClasses="label,value">
+               
+ 
+                <h:outputText value="Incident Id:" />
+                <h:outputText value="#{LazyView.selectedIm.id}" />
+ 
+                <h:outputText value="Incident Name" />
+                <h:outputText value="#{LazyView.selectedIm.name}" />
+ 
+                <h:outputText value="Is Active?:" />
+                <h:outputText value="#{LazyView.selectedIm.isActive}" />
+ 
+            </p:panelGrid>
+        </p:outputPanel >
+               
+    </p:dialog>
+           <br></br>
+        
+               <p:panelGrid style="width: 100%" id="add" >
+    <f:facet name="header">
+        <p:row>
+          
+            <p:column colspan="2"><h:outputLabel value="Incident Id: #{IM.setId(LazyView.getId(0))}"/>
+                
+                <p:inputText id="field" value="#{IM.id}">
+                        
+                </p:inputText>
+                </p:column>
+            <p:column colspan="2"><h:outputLabel value="Incident Name:#{IM.setName(null)} "/>
+                <p:inputText id="field2" value="#{IM.name}" /></p:column>
+            <p:column colspan="10"><h:outputLabel value="is Active? "/>
+                            <p:selectOneMenu id="field3" value="#{IM.isActive}" style="width:125px">
+                                <f:selectItem itemLabel="Yes" itemValue="Y" />
+                                <f:selectItem itemLabel="No" itemValue="N" />
+                            </p:selectOneMenu></p:column>
+            <p:column colspan="2">
+                <p:commandButton id="addB" action="#{LazyView.CheckId(IM)}" value="Add" update=":form:iMTable,:form:add"  resetValues="true" />
+                
+                      </p:column>
+            <p:column colspan="2">
+                <p:commandButton actionListener="#{LazyView.commitIm('new')}" value="Confirm" update=":form:iMTable,:form:add,:message" disabled="#{LazyView.newRec('new')}" >
+                <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+                </p:commandButton>
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                </p:confirmDialog>
+                
+                
+            </p:column>
+            <p:column colspan="2">
+                <p:commandButton action="#{LazyView.init()}" value="Discard" update=":form:iMTable,:form:add" disabled="#{LazyView.newRec('new')}"  />
+                
+                      </p:column>
+         
+        </p:row>
+ 
+    </f:facet>
+               </p:panelGrid>
+          
+                            
+              
+            
+                            
+                        
+                    
+           
+            
+      </h:form>
+        
+</ui:define>
+   
+   </ui:composition>
+    
+        

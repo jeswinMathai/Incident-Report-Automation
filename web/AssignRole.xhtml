@@ -1,0 +1,86 @@
+<ui:composition template="home.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+>
+    <ui:define name="Content">
+       
+       <p:growl id="message" showDetail="true" />
+       <h:form id="form">
+           
+           <h:panelGroup id="tab" >
+               <p:panelGrid style="width:100%">
+                   
+                <f:facet name="header">     
+                    <p:row>
+                       
+                         <p:column colspan="2"><h:outputLabel value="Emp No:"/>
+                
+                             <p:inputText id="field" value="#{assignRole.empNo}">
+
+                                    </p:inputText>
+                </p:column>
+                          <p:column colspan="2"><h:outputLabel value="Employee Name:"/>
+                
+                              <p:inputText id="field2" value="#{assignRole.name}">
+
+                                    </p:inputText>
+                </p:column>
+                        <p:column>
+                            <p:commandButton action="#{assignRole.onChange()}" value="Search" update=":form:table1"/>
+                        </p:column>
+                    </p:row>
+                </f:facet> 
+               </p:panelGrid>
+           </h:panelGroup>
+                <h:panelGroup id="table1" >
+           <p:dataTable  var="ipe" value="#{assignRole.ipeE}">
+            <f:facet name="header">
+                        <h4>Assign And Revoke Role</h4>
+
+                    </f:facet>
+         <p:column headerText="Emp No">
+                   <h:outputText value="#{ipe.empNo}" />
+        </p:column>
+        <p:column headerText="Employee Name" >
+                   <h:outputText value="#{ipe.name}" />
+        </p:column>
+        <p:column headerText="Designation" >
+                   <h:outputText value="#{ipe.designation}" />
+        </p:column>
+         <p:column headerText="Division" >
+                   <h:outputText value="#{ipe.division}" />
+        </p:column>
+        <p:column headerText="Role" >
+            <h:outputText value="#{ipe.role}" rendered="#{ipe.role!='none'}"/>
+             <h:selectOneMenu value="#{ipe.id}"   rendered="#{ipe.role=='none'}">
+      
+                   <f:selectItem itemLabel="Select One" itemValue="" noSelectionOption="true" />
+                   <f:selectItems value="#{assignRole.rms}" var="rms" itemLabel="#{rms.name}" itemValue="#{rms.id}" />
+                </h:selectOneMenu>
+        </p:column>
+        <p:column headerText="Operation" >
+                  
+            <p:commandButton actionListener="#{assignRole.commit(ipe.empNo,ipe.id,ipe.role!='none'?'Revoke':'Assign')}" value="#{ipe.role!='none'?'Revoke':'Assign'}"  update=":form" />
+               
+        </p:column>
+    </p:dataTable>
+          
+                </h:panelGroup>
+                            
+              
+            
+                            
+                        
+                    
+           
+            
+      </h:form>
+        
+</ui:define>
+   
+   </ui:composition>
+    
+        

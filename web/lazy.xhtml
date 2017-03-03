@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+ 
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+      <h:form id="form">
+          <p:dataTable var="iM" value="#{LazyView.lazyModel}" paginator="true" rows="10"
+                 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                 rowsPerPageTemplate="5,10,15" selectionMode="single" selection="#{LazyView.selectedIm}" id="iMTable" lazy="true">
+        <p:ajax event="rowSelect" listener="#{LazyView.onRowSelect}" update=":form:iMDetail" oncomplete="PF('iMDialog').show()" />
+
+        <p:column headerText=" Id" sortBy="#{iM.id}" filterBy="#{iM.id}">
+            <h:outputText value="#{iM.id}" />
+        </p:column>
+        <p:column headerText=" Name" sortBy="#{iM.name}" filterBy="#{iM.name}">
+                  <h:outputText value="#{iM.name}" />
+        </p:column>
+              <p:column headerText="Is  Active?" sortBy="#{iM.isActive}" filterBy="#{iM.isActive}">
+                  <h:outputText value="#{iM.isActive}" />
+        </p:column>
+    </p:dataTable>
+          
+            <p:dialog header="IM Detail" widgetVar="iMDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+        <p:outputPanel id="iMDetail" style="text-align:center;">
+            <p:panelGrid  columns="2" rendered="#{not empty LazyView.selectedIm}" columnClasses="label,value">
+               
+ 
+                <h:outputText value=" Id:" />
+                <h:outputText value="#{LazyView.selectedIm.id}" />
+ 
+                <h:outputText value="Name" />
+                <h:outputText value="#{LazyView.selectedIm.name}" />
+ 
+                <h:outputText value="Is Active?:" />
+                <h:outputText value="#{LazyView.selectedIm.isActive}" />
+ 
+            </p:panelGrid>
+        </p:outputPanel>
+    </p:dialog>
+      </h:form>
+    </h:body>
+</html>
+
